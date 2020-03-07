@@ -10,9 +10,15 @@ import { RegistrationdialogComponent } from './registrationdialog/registrationdi
 import { UserhomeComponent } from './userhome/userhome.component';
 import { PasswordlistComponent } from './passwordlist/passwordlist.component';
 import { StatusfooterComponent } from './statusfooter/statusfooter.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { AuthService } from './auth.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { CheckupComponent } from './checkup/checkup.component';
+import { NewpasswordComponent } from './newpassword/newpassword.component';
+import { HelpComponent } from './help/help.component';
+import { UsersettingsComponent } from './usersettings/usersettings.component';
 
 
 @NgModule({
@@ -23,14 +29,26 @@ import { AuthService } from './auth.service';
     RegistrationdialogComponent,
     UserhomeComponent,
     PasswordlistComponent,
-    StatusfooterComponent
+    StatusfooterComponent,
+    CheckupComponent,
+    NewpasswordComponent,
+    HelpComponent,
+    UsersettingsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule
+    BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
+  providers: [],
+  bootstrap: [AppComponent],
+  exports: [ MatSidenavModule ]
   providers: [ AuthService ],
   bootstrap: [AppComponent]
 })

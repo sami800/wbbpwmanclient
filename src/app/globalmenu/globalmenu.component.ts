@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-globalmenu',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GlobalmenuComponent implements OnInit {
 
-  constructor() { }
+  showText = false;
+
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
+    this.showText = false;
+  }
+
+  navigateToLink(url: string) {
+    this.router.navigateByUrl(url);
   }
 
 }
+
