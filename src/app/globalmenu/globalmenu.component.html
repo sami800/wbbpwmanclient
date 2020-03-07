@@ -1,23 +1,18 @@
 <mat-drawer-container class="menu-container" autosize>
+  <button mat-icon-button class="openClose" (click)="showText = !showText"><mat-icon class="openCloseIcon">
+    {{showText ? 'arrow_left' : 'arrow_right'}}
+  </mat-icon></button>
   <router-outlet></router-outlet>
 
   <mat-drawer #drawer class="sidenav" mode="side" [opened]="true">
     <div class="sidenav-content">
-    <mat-icon (click)="showText = !showText">
-      {{showText ? 'arrow_left' : 'arrow_right'}}
-    </mat-icon>
     <div class="logo">WBB Password Manager</div>
    
       <br>
-
       <a mat-button (click)="navigateToLink('/home')" class="sidenav-button"><mat-icon>assessment</mat-icon> {{showText ? 'Summary' : ''}}</a>
-
       <a mat-button (click)="navigateToLink('/checkup')" class="sidenav-button"><mat-icon>search</mat-icon> {{showText ? 'Checkup' : ''}}</a>
-
       <a mat-button (click)="navigateToLink('/newpassword')" class="sidenav-button"><mat-icon>add_circle</mat-icon> {{showText ? 'New Password' : ''}}</a>
-
       <a mat-button (click)="navigateToLink('/help')" class="sidenav-button"><mat-icon>help</mat-icon> {{showText ? 'Help' : ''}}</a>
-    
     </div>
 
     <div class="sidenav-bottom-button">
