@@ -7,17 +7,26 @@
       {{showText ? 'arrow_left' : 'arrow_right'}}
     </mat-icon>
     <div class="logo">WBB Password Manager</div>
+   
+      <br>
 
-    <a (click)="navigateToLink('/home')" class="sidenav-button"><mat-icon>assessment</mat-icon><div class="menuText" *ngIf="showText">Summary</div></a>
-    <a (click)="navigateToLink('/checkup')" class="sidenav-button"><mat-icon>search</mat-icon><div class="menuText" *ngIf="showText">Checkup</div></a>
-    <a (click)="navigateToLink('/newpassword')" class="sidenav-button"><mat-icon>add_circle</mat-icon><div class="menuText" *ngIf="showText">New Password</div></a>
-    <a (click)="navigateToLink('/help')" class="sidenav-button"><mat-icon>help</mat-icon><div class="menuText" *ngIf="showText">Help</div></a>
-    </div>
-    <div class="sidenav-bottom-button"><mat-icon (click)="navigateToLink('/login')" >exit_to_app</mat-icon><div (click)="navigateToLink('/login')" *ngIf="showText">Logout</div>
-    <div (click)="navigateToLink('/usersettings')" class="sidenav-button" *ngIf="showText"><mat-icon (click)="navigateToLink('/usersettings')">settings</mat-icon>settings</div></div>
+      <a mat-button (click)="navigateToLink('/home')" class="sidenav-button"><mat-icon>assessment</mat-icon> {{showText ? 'Summary' : ''}}</a>
+
+      <a mat-button (click)="navigateToLink('/checkup')" class="sidenav-button"><mat-icon>search</mat-icon> {{showText ? 'Checkup' : ''}}</a>
+
+      <a mat-button (click)="navigateToLink('/newpassword')" class="sidenav-button"><mat-icon>add_circle</mat-icon> {{showText ? 'New Password' : ''}}</a>
+
+      <a mat-button (click)="navigateToLink('/help')" class="sidenav-button"><mat-icon>help</mat-icon> {{showText ? 'Help' : ''}}</a>
     
+    </div>
 
-  
+    <div class="sidenav-bottom-button">
+      <a mat-button (click)="navigateToLink('/help')"><mat-icon>exit_to_app</mat-icon> {{showText ? 'Logout' : ''}}</a>
+      <div *ngIf="showText">
+        <a mat-button (click)="navigateToLink('/usersettings')"><mat-icon>settings</mat-icon>Settings</a>
+      </div>
+  </div>
+
   </mat-drawer>
 
 
