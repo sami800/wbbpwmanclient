@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-globalmenu',
@@ -9,10 +10,14 @@ export class GlobalmenuComponent implements OnInit {
 
   showText = false;
 
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
     this.showText = false;
+  }
+
+  navigateToLink(url: string) {
+    this.router.navigateByUrl(url);
   }
 
 }

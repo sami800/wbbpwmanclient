@@ -14,6 +14,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { CheckupComponent } from './checkup/checkup.component';
+import { NewpasswordComponent } from './newpassword/newpassword.component';
+import { HelpComponent } from './help/help.component';
+import { UsersettingsComponent } from './usersettings/usersettings.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     RegistrationdialogComponent,
     UserhomeComponent,
     PasswordlistComponent,
-    StatusfooterComponent
+    StatusfooterComponent,
+    CheckupComponent,
+    NewpasswordComponent,
+    HelpComponent,
+    UsersettingsComponent
   ],
   imports: [
     BrowserModule,
