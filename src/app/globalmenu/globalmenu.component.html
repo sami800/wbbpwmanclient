@@ -1,1 +1,21 @@
-<p>globalmenu works!</p>
+<mat-drawer-container class="menu-container" autosize>
+  <router-outlet></router-outlet>
+
+  <mat-drawer #drawer class="sidenav" mode="side" [opened]="true">
+    <mat-icon (click)="showText = !showText">
+      {{showText ? 'arrow_left' : 'arrow_right'}}
+    </mat-icon>
+    <div class="logo">WBB Password Manager</div>
+    <br/>
+    <div fxFlex="100%" fxLayoutalign="row">
+    <div><mat-icon>star</mat-icon><div class="menuText" *ngIf="showText">Home</div></div>
+    <div><mat-icon>star</mat-icon><div class="menuText" *ngIf="showText">Home</div></div>
+    <div><mat-icon>star</mat-icon><div class="menuText" *ngIf="showText">Home</div></div>
+    <div><mat-icon>star</mat-icon><div class="menuText" *ngIf="showText">Home</div></div>
+    <div><mat-icon>star</mat-icon><div class="menuText" *ngIf="showText">Home</div></div>
+    </div>
+
+  </mat-drawer>
+
+
+</mat-drawer-container>

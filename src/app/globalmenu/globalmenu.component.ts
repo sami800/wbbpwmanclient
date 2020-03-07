@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GlobalmenuComponent implements OnInit {
 
+  showText = false;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.showText = false;
   }
 
 }
+

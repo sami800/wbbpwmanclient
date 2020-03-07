@@ -10,6 +10,10 @@ import { RegistrationdialogComponent } from './registrationdialog/registrationdi
 import { UserhomeComponent } from './userhome/userhome.component';
 import { PasswordlistComponent } from './passwordlist/passwordlist.component';
 import { StatusfooterComponent } from './statusfooter/statusfooter.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -24,9 +28,14 @@ import { StatusfooterComponent } from './statusfooter/statusfooter.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [ MatSidenavModule ]
 })
 export class AppModule { }

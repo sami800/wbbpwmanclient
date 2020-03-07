@@ -1,0 +1,34 @@
+
+.logo {
+    background-image: url('src/assets/img/WBBLogo.png');
+    background-size: cover;
+    color: transparent;
+    height:100px;
+    width:100px;
+}
+
+.menu-container {
+    max-width: 100vw;
+    width: 1000px;
+    height: 100vh;
+    border: 0px solid rgba(0, 0, 0, 0.5);
+  }
+  
+  .sidenav-content {
+    display: flex;
+    height: 100%;
+  }
+
+  .menuText {
+    
+}
+  
+  .sidenav {
+    padding: 20px;
+  }
+  mat-icon {
+    padding:5px;
+}
+
+
+  
