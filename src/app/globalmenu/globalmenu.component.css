@@ -19,13 +19,13 @@
   display: flex;
   flex-flow: column;
   flex-grow: 1;
-  height: 80vh;
+  height: 85vh;
   align-items: center;
   justify-content: flex-start space-around;
 }
  
 .sidenav {
-  padding: 15px;
+  padding: 5px;
 }
 
 mat-icon {
@@ -54,7 +54,7 @@ mat-icon {
 
 a {
   padding: 5px;
-  margin:15px;
+  margin:5px;
 }
 
   
