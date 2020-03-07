@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/wbbpwmanclient",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "!/@(js|css)/**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

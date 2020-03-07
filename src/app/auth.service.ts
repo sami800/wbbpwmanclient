@@ -3,7 +3,12 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class UpdateserviceService {
+export class AuthService {
 
   constructor() { }
+
+  getAuthorizationToken() {
+    return 'some-auth-token';
+  }
+
 }

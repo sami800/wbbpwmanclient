@@ -10,6 +10,10 @@ import { RegistrationdialogComponent } from './registrationdialog/registrationdi
 import { UserhomeComponent } from './userhome/userhome.component';
 import { PasswordlistComponent } from './passwordlist/passwordlist.component';
 import { StatusfooterComponent } from './statusfooter/statusfooter.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { AuthService } from './auth.service';
+
 
 @NgModule({
   declarations: [
@@ -24,9 +28,10 @@ import { StatusfooterComponent } from './statusfooter/statusfooter.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
+  providers: [ AuthService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
