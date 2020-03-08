@@ -20,6 +20,9 @@ import { CheckupComponent } from './checkup/checkup.component';
 import { NewpasswordComponent } from './newpassword/newpassword.component';
 import { HelpComponent } from './help/help.component';
 import { UsersettingsComponent } from './usersettings/usersettings.component';
+import { LandingpageComponent } from './landingpage/landingpage.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 
 @NgModule({
@@ -34,7 +37,8 @@ import { UsersettingsComponent } from './usersettings/usersettings.component';
     CheckupComponent,
     NewpasswordComponent,
     HelpComponent,
-    UsersettingsComponent
+    UsersettingsComponent,
+    LandingpageComponent
   ],
   imports: [
     BrowserModule,
@@ -44,10 +48,11 @@ import { UsersettingsComponent } from './usersettings/usersettings.component';
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
+    FlexLayoutModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports: [ MatSidenavModule ]
+  exports: [ MatSidenavModule, FlexLayoutModule ]
 })
 export class AppModule { }

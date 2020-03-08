@@ -1,24 +1,36 @@
 <mat-drawer-container class="menu-container" autosize>
-  <button mat-icon-button class="openClose" (click)="showText = !showText"><mat-icon class="openCloseIcon">
-    {{showText ? 'arrow_left' : 'arrow_right'}}
-  </mat-icon></button>
+
+  <button aria-label="Button to expand or shrink menu" fxHide fxShow.xs fxShow.sm fxShow.md mat-icon-button class="openClose" (click)="showText = !showText">
+    <mat-icon aria-label="Expand or shrink menu icon" class="openCloseIcon">
+      {{showText ? 'arrow_left' : 'arrow_right'}}
+    </mat-icon>
+  </button>
   <router-outlet></router-outlet>
 
   <mat-drawer #drawer class="sidenav" mode="side" [opened]="true">
+    <div class="menuHeader">
+      <mat-icon aria-label="Expand or shrink menu icon" fxShow fxHide.xs fxHide.sm fxHide.md (click)="showText = !showText" class="openCloseIconInMenu">
+        {{showText ? 'arrow_left' : 'arrow_right'}}
+      </mat-icon>
+    </div>
+
     <div class="sidenav-content">
-    <div class="logo">WBB Password Manager</div>
-   
+    
+      <img [src]="logoUrl" [style.width]="logoWidth" [style.height]="logoHeight" alt="WBB Pasword Manager Logo">
+      
       <br>
-      <a mat-button (click)="navigateToLink('/home')" class="sidenav-button"><mat-icon>assessment</mat-icon> {{showText ? 'Summary' : ''}}</a>
-      <a mat-button (click)="navigateToLink('/checkup')" class="sidenav-button"><mat-icon>search</mat-icon> {{showText ? 'Checkup' : ''}}</a>
-      <a mat-button (click)="navigateToLink('/newpassword')" class="sidenav-button"><mat-icon>add_circle</mat-icon> {{showText ? 'New Password' : ''}}</a>
-      <a mat-button (click)="navigateToLink('/help')" class="sidenav-button"><mat-icon>help</mat-icon> {{showText ? 'Help' : ''}}</a>
+
+      <a mat-button aria-label="Menu button, click to open assessment" (click)="navigateToLink('/home')" class="sidenav-button"><mat-icon>assessment</mat-icon> {{showText ? 'Summary' : ''}}</a>
+      <a mat-button aria-label="Menu button, click to open run a checkup" (click)="navigateToLink('/checkup')" class="sidenav-button"><mat-icon>search</mat-icon> {{showText ? 'Checkup' : ''}}</a>
+      <a mat-button aria-label="Menu button, click to add a password" (click)="navigateToLink('/newpassword')" class="sidenav-button"><mat-icon>add_circle</mat-icon> {{showText ? 'New Password' : ''}}</a>
+      <a mat-button aria-label="Menu button, click for help" (click)="navigateToLink('/help')" class="sidenav-button"><mat-icon>help</mat-icon> {{showText ? 'Help' : ''}}</a>
+    
     </div>
 
     <div class="sidenav-bottom-button">
-      <a mat-button (click)="navigateToLink('/help')"><mat-icon>exit_to_app</mat-icon> {{showText ? 'Logout' : ''}}</a>
+      <a mat-button aria-label="Menu button, click to log out" (click)="navigateToLink('/login')"><mat-icon>exit_to_app</mat-icon> {{showText ? 'Logout' : ''}}</a>
       <div *ngIf="showText">
-        <a mat-button (click)="navigateToLink('/usersettings')"><mat-icon>settings</mat-icon>Settings</a>
+        <a mat-button aria-label="Menu button, click to open settings" (click)="navigateToLink('/usersettings')"><mat-icon>settings</mat-icon>Settings</a>
       </div>
   </div>
 

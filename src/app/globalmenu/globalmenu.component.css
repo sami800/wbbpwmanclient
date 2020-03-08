@@ -1,28 +1,35 @@
 
-.logo {
-  background-image: url('src/assets/img/WBBLogo.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  color: transparent;
+img {
+  display: flex;
+  flex-grow: 0;
   height: 55px;
   width: 55px;
 }
 
 .openClose {
-
   color : rgb(255,255,255,1);
   background-color:  rgba(7, 66, 109, 0.96);
   border-radius: 20px;
   height: 40px;
   width: 40px;
   margin: 10px;
-
 }
 
 .openCloseIcon {
   font-size: 24px;
   margin: 0px !important;
   padding:0px !important;  
+}
+
+.menuHeader {
+  display: flex;
+  flex-flow: row-reverse;
+}
+
+.openCloseIconInMenu {
+  font-size: 36px;
+  margin-right: 10px;
+  margin-bottom: 20px;
 } 
 
 .menu-container {

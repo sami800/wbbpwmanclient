@@ -7,10 +7,10 @@ import { NewpasswordComponent } from './newpassword/newpassword.component';
 import { HelpComponent } from './help/help.component';
 import { UsersettingsComponent } from './usersettings/usersettings.component';
 import { CheckupComponent } from './checkup/checkup.component';
-
+import { LandingpageComponent } from './landingpage/landingpage.component';
 
 const routes: Routes = [
-  { path: '', component: UserhomeComponent },
+  { path: '', component: LandingpageComponent },
   { path: 'login', component: LogindialogComponent },
   { path: 'home', component: UserhomeComponent },
   { path: 'passwordlist', component: PasswordlistComponent },
