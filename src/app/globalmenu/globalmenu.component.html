@@ -16,7 +16,7 @@
 
     <div class="sidenav-content">
     
-      <img [src]="logoUrl" [style.width]="logoWidth" [style.height]="logoHeight" alt="WBB Pasword Manager Logo">
+      <img [src]="logoUrl" [style.width]="logoWidth" [style.height]="logoHeight" alt="WBB Pasword Manager Logo" (error)="logoUrl = 'assets/icons/icon-512x512.png'">
       
       <br>
 

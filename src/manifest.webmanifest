@@ -1,8 +1,9 @@
 {
-  "name": "wbbpwmanclient",
-  "short_name": "wbbpwmanclient",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "name": "WBB Password Manager",
+  "short_name": "wbb pw man",
+  "description": "WBB Password Manager Client",
+  "theme_color": "#07426d",
+  "background_color": "#007bc6",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

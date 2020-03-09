@@ -14,16 +14,11 @@ export class LocalDBserviceService extends Dexie {
   constructor() {  
     super("WBBPWManager");
     
-    //
-    // Define tables and indexes
-    // (Here's where the implicit table props are dynamically created)
-    //
     this.version(2).stores({
       contacts: '++id, first, last',
       passwords: '++id, domain, password, updatedate',
     });
     
-    // The following lines are needed for it to work across typescipt using babel-preset-typescript:
     this.contacts = this.table("contacts");
     this.passwords = this.table("passwords");
     

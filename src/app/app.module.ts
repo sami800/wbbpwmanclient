@@ -22,7 +22,10 @@ import { HelpComponent } from './help/help.component';
 import { UsersettingsComponent } from './usersettings/usersettings.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http'; 
 
+import { AuthService } from './auth.service';
+import { LocalDBserviceService } from './local-dbservice.service';
 
 
 @NgModule({
@@ -49,10 +52,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatIconModule,
     MatSidenavModule,
     FlexLayoutModule,
+    HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
-  bootstrap: [AppComponent],
-  exports: [ MatSidenavModule, FlexLayoutModule ]
+  providers: [ AuthService, LocalDBserviceService ],
+  bootstrap: [ AppComponent ],
+  exports: [ MatSidenavModule, FlexLayoutModule, HttpClientModule ]
 })
 export class AppModule { }
