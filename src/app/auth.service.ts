@@ -9,7 +9,8 @@ const httpOptions = {
     'Content-Type':  'application/json',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST',
-    'Access-Control-Allow-Headers': '*'
+    'Access-Control-Allow-Headers': '*',
+    'Access-Control-Expose-Headers': '*'
   })
 };
 
@@ -32,10 +33,10 @@ export class AuthService {
 
     login(uname: string, pword: string) {
       let postData = { email : uname, password : pword };
-          return this.http.post('https://wbbpasswordmanager.appspot.com/auth/login', { "email" : uname , "password" : pword }, httpOptions ).pipe(map(user => {
-                if (user) {
+          return this.http.post<any>('https://wbbpasswordmanager.appspot.com/auth/login', { "email" : uname , "password" : pword }, httpOptions ).pipe(map(user => {
+                if (user && user.token) {
                     localStorage.setItem('currentUser', JSON.stringify(user));
-                    //this.userSubject.next(user);
+                    this.userSubject.next(user);
                 }
                 return user;
             }));
