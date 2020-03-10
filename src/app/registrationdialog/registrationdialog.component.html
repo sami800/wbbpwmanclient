@@ -2,19 +2,34 @@
 <h1>Registration Form</h1>
 </header>
 
-<div>
-<form align="center"> 
-    
+<div fxLayout="column">
+<form> 
+
+<fieldset>
     <label for="username"><b>Name:</b></label>
     <input type="text" name="name"/><br><br>
+</fieldset>
+
+<fieldset>
     <label for="username"><b>Username:</b></label>
     <input type="text" username="username"/><br><br>
+</fieldset>
+
+<fieldset>
     <label for="password"><b>Enter-Pass:</b></label>
     <input type="password" name="password" /><br><br>
-    <label for="passwordconfirm"><b>Confirm-Pass:</b></label>
+</fieldset>
+
+<fieldset>
+    <mat-icon>perm_identity</mat-icon>
+    <label for="passwordconfirm"><b>Confirm-Pass:</b></label>        
+    
     <input type="password" name="password" /><br><br>
-    <button >Register</button><br><br>
-    <a routerLink="/Login">Login</a>
+
+</fieldset>
+
+    <button mat-raise-button><mat-icon>star</mat-icon>Register</button><br><br>
+    <a routerLink="/login">Login</a>
 
 </form>
 </div>
