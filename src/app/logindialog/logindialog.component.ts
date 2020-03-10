@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-logindialog',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogindialogComponent implements OnInit {
 
-  constructor() { }
+  username;
+  password;
 
-  ngOnInit(): void {
+  constructor(public auth: AuthService) {}
+
+  ngOnInit(): void {}
+  
+  login(username: string, password: string) {
+    this.auth.login(username, password).subscribe(
+      response => console.log(response),
+      err => console.log(err)
+    );
   }
+  
 
 }

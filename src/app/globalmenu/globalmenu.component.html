@@ -28,7 +28,7 @@
     </div>
 
     <div class="sidenav-bottom-button">
-      <a mat-button aria-label="Menu button, click to log out" (click)="navigateToLink('/login')"><mat-icon>exit_to_app</mat-icon> {{showText ? 'Logout' : ''}}</a>
+      <a mat-button aria-label="Menu button, click to log out" (click)="this.logout()"><mat-icon>exit_to_app</mat-icon> {{showText ? 'Logout' : ''}}</a>
       <div *ngIf="showText">
         <a mat-button aria-label="Menu button, click to open settings" (click)="navigateToLink('/usersettings')"><mat-icon>settings</mat-icon>Settings</a>
       </div>
