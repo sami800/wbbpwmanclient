@@ -7,7 +7,7 @@
   </button>
   <router-outlet></router-outlet>
 
-  <mat-drawer #drawer class="sidenav" mode="side" [opened]="true">
+  <mat-drawer #drawer [opened]="openOrClosed" class="sidenav" mode="side">
     <div class="menuHeader">
       <mat-icon aria-label="Expand or shrink menu icon" fxShow fxHide.xs fxHide.sm fxHide.md (click)="showText = !showText" class="openCloseIconInMenu">
         {{showText ? 'arrow_left' : 'arrow_right'}}

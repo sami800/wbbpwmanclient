@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from './usermodel';
@@ -23,6 +23,9 @@ export class AuthService {
   public headers: HttpHeaders;
 
   constructor(private http: HttpClient) {
+    localStorage.setItem('loginstatus', JSON.stringify('true'));
+    localStorage.setItem('currentUser', JSON.stringify('testUser'));
+
     this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.userSubject.asObservable();
   }
@@ -31,9 +34,15 @@ export class AuthService {
         return this.userSubject.value;
     }
 
+    public getUserInfo(): Observable<User> {
+      return this.userSubject.asObservable();
+    }
+
+
+
     login(uname: string, pword: string) {
-      let postData = { email : uname, password : pword };
-          return this.http.post<any>('https://wbbpasswordmanager.appspot.com/auth/login', { "email" : uname , "password" : pword }, httpOptions ).pipe(map(user => {
+      return this.http.post<any>('https://wbbpasswordmanager.appspot.com/auth/login', { email : uname , password : pword },
+      httpOptions ).pipe(map(user => {
                 if (user && user.token) {
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.userSubject.next(user);
@@ -43,11 +52,11 @@ export class AuthService {
     }
 
     logout() {
-      let postData = { "email" : localStorage.getItem('currentUser')};
+      const postData = { email : localStorage.getItem('currentUser')};
       return this.http.post(`https://wbbpasswordmanager.appspot.com/auth/login`, postData, httpOptions).pipe(map(user => {
         if (user) {
             localStorage.removeItem('currentUser');
-            this.userSubject.next(null);    
+            this.userSubject.next(null);
         } else {
           alert('Could not log out' + localStorage.getItem('currentUser') + 'Client offline');
         }

@@ -8,6 +8,7 @@ import { HelpComponent } from './help/help.component';
 import { UsersettingsComponent } from './usersettings/usersettings.component';
 import { CheckupComponent } from './checkup/checkup.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
+import { RegistrationdialogComponent } from './registrationdialog/registrationdialog.component';
 
 const routes: Routes = [
   { path: '', component: LandingpageComponent },
@@ -18,6 +19,8 @@ const routes: Routes = [
   { path: 'checkup', component: CheckupComponent },
   { path: 'help', component: HelpComponent },
   { path: 'usersettings', component: UsersettingsComponent },
+  { path: 'register', component: RegistrationdialogComponent },
+  { path: 'registration', component: RegistrationdialogComponent }
 ];
 
 @NgModule({

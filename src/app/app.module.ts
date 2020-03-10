@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ServiceWorkerModule } from '@angular/service-worker'; 
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +23,7 @@ import { HelpComponent } from './help/help.component';
 import { UsersettingsComponent } from './usersettings/usersettings.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
 
 import { AuthService } from './auth.service';
 import { LocalDBserviceService } from './local-dbservice.service';
@@ -53,6 +54,7 @@ import { LocalDBserviceService } from './local-dbservice.service';
     MatSidenavModule,
     FlexLayoutModule,
     HttpClientModule,
+    MatTabsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [ AuthService, LocalDBserviceService ],

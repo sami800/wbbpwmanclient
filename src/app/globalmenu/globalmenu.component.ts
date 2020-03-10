@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MediaObserver } from '@angular/flex-layout';
 
+import { AuthService } from '../auth.service';
+
 
 @Component({
   selector: 'app-globalmenu',
@@ -14,10 +16,21 @@ export class GlobalmenuComponent implements OnInit {
   logoUrl = 'assets/img/WBBLogo.webp';
   logoWidth = '25px';
   logoHeight = '25px';
+  openOrClosed = true;
+  loginStatus = true;
 
-  constructor(public router: Router, public media: MediaObserver) { }
+  constructor(public router: Router, public media: MediaObserver, public auth: AuthService ) {
+  /*   auth.getUser().subscribe(
+      res => {console.log(JSON.parse(res.loginstatus)); },
+      err => {console.log(JSON.parse(err.loginstatus)); }
+  );
+  auth.getUser()
+  } */
+  }
 
   ngOnInit(): void {
+
+    console.log();
     if (this.media.isActive('xs') || this.media.isActive('sm') || this.media.isActive('md') ) {
       this.logoUrl = 'assets/img/WBBLogoSm.webp';
       this.logoWidth = '45px';
