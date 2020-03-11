@@ -1,6 +1,6 @@
 <mat-drawer-container class="menu-container" autosize>
 
-  <button aria-label="Button to expand or shrink menu" fxHide fxShow.xs fxShow.sm fxShow.md mat-icon-button class="openClose" (click)="showText = !showText">
+  <button aria-label="Button to expand or shrink menu" *ngIf="openOrClosed" fxHide fxShow.xs fxShow.sm fxShow.md mat-icon-button class="openClose" (click)="showText = !showText">
     <mat-icon aria-label="Expand or shrink menu icon" class="openCloseIcon">
       {{showText ? 'arrow_left' : 'arrow_right'}}
     </mat-icon>
@@ -28,7 +28,7 @@
     </div>
 
     <div class="sidenav-bottom-button">
-      <a mat-button aria-label="Menu button, click to log out" (click)="navigateToLink('/login')"><mat-icon>exit_to_app</mat-icon> {{showText ? 'Logout' : ''}}</a>
+      <a mat-button aria-label="Menu button, click to log out" (click)="this.logout()"><mat-icon>exit_to_app</mat-icon> {{showText ? 'Logout' : ''}}</a>
       <div *ngIf="showText">
         <a mat-button aria-label="Menu button, click to open settings" (click)="navigateToLink('/usersettings')"><mat-icon>settings</mat-icon>Settings</a>
       </div>
