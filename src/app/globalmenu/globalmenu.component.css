@@ -43,7 +43,7 @@ img {
   display: flex;
   flex-flow: column;
   flex-grow: 1;
-  height: 85vh;
+  height: 80vh;
   align-items: center;
   justify-content: flex-start space-around;
 }
