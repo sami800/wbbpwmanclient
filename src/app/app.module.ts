@@ -16,6 +16,7 @@ import { environment } from '../environments/environment';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CheckupComponent } from './checkup/checkup.component';
 import { NewpasswordComponent } from './newpassword/newpassword.component';
@@ -55,6 +56,7 @@ import { LocalDBserviceService } from './local-dbservice.service';
     FlexLayoutModule,
     HttpClientModule,
     MatTabsModule,
+    MatCardModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [ AuthService, LocalDBserviceService ],

@@ -1,6 +1,6 @@
 <mat-drawer-container class="menu-container" autosize>
 
-  <button aria-label="Button to expand or shrink menu" fxHide fxShow.xs fxShow.sm fxShow.md mat-icon-button class="openClose" (click)="showText = !showText">
+  <button aria-label="Button to expand or shrink menu" *ngIf="openOrClosed" fxHide fxShow.xs fxShow.sm fxShow.md mat-icon-button class="openClose" (click)="showText = !showText">
     <mat-icon aria-label="Expand or shrink menu icon" class="openCloseIcon">
       {{showText ? 'arrow_left' : 'arrow_right'}}
     </mat-icon>
