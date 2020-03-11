@@ -1,0 +1,16 @@
+.example-button-row button,
+.example-button-row a {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    padding-bottom: 15px;
+}
+
+.lbl {
+    text-align: center;
+    font-size: xx-large;
+    font: bolder;
+    padding-top: 40px;
+    padding-bottom: 50px;
+    color: rgba(2, 83, 136, 0.96);
+}
