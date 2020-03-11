@@ -1,5 +1,5 @@
 <div class="headerContainer">
-    <div fxShow fxHide.xs fxShow.sm fxHide.md class="landingHeaderButtons" >
+    <div fxShow fxHide.xs fxHide.sm fxHide.md class="landingHeaderButtons" >
         <button class="barbutton" *ngIf="currentTab.value != 0" (click)="updateCurrentTab(0)" mat-raised-button>Home</button>
         <button class="barbutton" *ngIf="currentTab.value == !1" (click)="updateCurrentTab(1)" mat-raised-button>Login</button>
         <button class="barbutton" *ngIf="currentTab.value == !2" (click)="updateCurrentTab(2)" mat-raised-button>Register</button>

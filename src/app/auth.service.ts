@@ -8,7 +8,6 @@ import { BehaviorSubject } from 'rxjs';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
-    'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST',
     'Access-Control-Allow-Headers': '*',
     'Access-Control-Expose-Headers': '*'
