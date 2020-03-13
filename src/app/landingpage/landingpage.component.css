@@ -1,0 +1,72 @@
+
+::-webkit-scrollbar {
+    width: 0px;
+  }
+
+.headerContainer {
+    background-color: #007bc6;
+    color: white;
+    display: flex;
+    flex-flow: row;
+    width:100%;
+}
+
+.cardContainer {
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+    height: 85vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center space-around;
+}
+
+.landingLogo {
+    color: white;
+    display: flex;
+    flex-flow: row;
+    width:100%;
+    align-self: center;
+    align-items: center;
+    justify-content: center ;
+}
+
+.landingHeaderButtons {
+    display: flex;
+    flex-flow: row;
+    flex-grow: 1;
+    align-items: right;
+    justify-content: flex-end;
+    margin:5px;
+}
+.landingHeaderTitle {
+    display: flex;
+    flex-flow: row;
+
+    align-items: center;
+    justify-content: flex-start;
+    margin:8px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.barbutton {
+    width: 100px;
+    height: 50px;
+}
+
+.mat-raised-button {
+    color: white;
+    background-color: #07426d;
+    margin:2px;
+}
+
+.mat-tab-labels {
+    display: none !important;
+}
+
+.mat-ink-bar {
+    background-color: green;
+}

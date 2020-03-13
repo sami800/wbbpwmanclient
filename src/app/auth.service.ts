@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from './usermodel';
+import { BehaviorSubject } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
-    'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST',
     'Access-Control-Allow-Headers': '*',
     'Access-Control-Expose-Headers': '*'
@@ -18,48 +18,56 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
-  private userSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
   public headers: HttpHeaders;
+  public userinf: BehaviorSubject<User> = new BehaviorSubject<User>({
+    id : 0,
+        loginstatus: false,
+        username: 'temp',
+        password: 'temp',
+        firstName: 'temp',
+        loginTime: '0',
+  });
 
-  constructor(private http: HttpClient) {
-    localStorage.setItem('loginstatus', JSON.stringify('true'));
-    localStorage.setItem('currentUser', JSON.stringify('testUser'));
+  constructor(private http: HttpClient, private router: Router) {
 
-    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = this.userSubject.asObservable();
-  }
-
-    public get currentUserVal(): User {
-        return this.userSubject.value;
+    this.userinf.subscribe(val => {
+        for (let item in val) {
+          localStorage.setItem(item, val[item])
+        }
+        console.log(val);
+      });
     }
-
-    public getUserInfo(): Observable<User> {
-      return this.userSubject.asObservable();
-    }
-
-
 
     login(uname: string, pword: string) {
+      // will navigation to the IF below when access point is done.
+      this.navigateToLink('/home');
+      this.userinf.next({...this.userinf.value, loginstatus: true})
       return this.http.post<any>('https://wbbpasswordmanager.appspot.com/auth/login', { email : uname , password : pword },
       httpOptions ).pipe(map(user => {
-                if (user && user.token) {
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    this.userSubject.next(user);
-                }
-                return user;
-            }));
+        if (user && user.token) {
+          for (let field in user) {
+            localStorage.setItem(field , JSON.stringify(user[field]))
+          }}
+          return user;
+      }))
     }
 
     logout() {
-      const postData = { email : localStorage.getItem('currentUser')};
-      return this.http.post(`https://wbbpasswordmanager.appspot.com/auth/login`, postData, httpOptions).pipe(map(user => {
+      // will move navigation to IF below when access point is done.
+      this.navigateToLink('/');
+      this.userinf.next({...this.userinf.value, loginstatus: false})
+      const postData = { email : localStorage.getItem('username')};
+      return this.http.post(`https://wbbpasswordmanager.appspot.com/auth/logout`, postData, httpOptions).pipe(map(user => {
         if (user) {
-            localStorage.removeItem('currentUser');
-            this.userSubject.next(null);
+          for (let field in user) {
+            localStorage.removeItem(field)
+          }
         } else {
-          alert('Could not log out' + localStorage.getItem('currentUser') + 'Client offline');
+          alert('Could not log out ' + localStorage.getItem('username') + ' Client offline');
         }
       }));
+    }
+    navigateToLink(url: string) {
+      this.router.navigateByUrl(url);
     }
 }

@@ -1,5 +1,40 @@
-<mat-tab-group mat-stretch-tabs>
-    <mat-tab label="WBB Password Manager"> Content 1 </mat-tab>
-    <mat-tab label="Login"><app-logindialog></app-logindialog></mat-tab>
-    <mat-tab label="Register"><app-registrationdialog></app-registrationdialog></mat-tab>
-  </mat-tab-group>
+<div class="headerContainer">
+    <div fxShow fxHide.xs fxHide.sm fxHide.md class="landingHeaderButtons" >
+        <button class="barbutton" *ngIf="currentTab.value != 0" (click)="updateCurrentTab(0)" mat-raised-button>Home</button>
+        <button class="barbutton" *ngIf="currentTab.value == !1" (click)="updateCurrentTab(1)" mat-raised-button>Login</button>
+        <button class="barbutton" *ngIf="currentTab.value == !2" (click)="updateCurrentTab(2)" mat-raised-button>Register</button>
+    </div>
+
+    <button fxHide fxShow.xs fxShow.sm fxShow.md mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="updateCurrentTab(0)"><mat-icon>home</mat-icon>
+            <span>Home</span>
+        </button>
+        <button mat-menu-item (click)="updateCurrentTab(1)"><mat-icon>lock_open</mat-icon>
+            <span>Login</span>
+        </button>
+        <button mat-menu-item (click)="updateCurrentTab(2)"><mat-icon>notes</mat-icon>
+            <span>Register</span>
+        </button>
+    </mat-menu>
+</div>
+
+<mat-tab-group [selectedIndex]="currentTab.value">
+    <mat-tab id="prodtitle" label="WBB Password Manager">
+        <mat-card class="example-card">
+            <mat-card-content class="cardContainer">
+                <div class="landingLogo" >
+                    <img src="assets/icons/icon-128x128.png"> 
+                </div>
+                    <h1>Welcome to WBB Password Manager</h1>
+                    <h3>A place to keep all your passwords</h3>
+                <p>
+                    Fill this area with text about our product.
+                </p>
+            </mat-card-content>
+          </mat-card>
+
+    </mat-tab>
+    <mat-tab class="loginTab" label="Login"><app-logindialog></app-logindialog></mat-tab>
+    <mat-tab class="registerTab" label="Register"><app-registrationdialog></app-registrationdialog></mat-tab>
+</mat-tab-group>

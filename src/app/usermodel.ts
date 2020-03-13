@@ -1,6 +1,6 @@
 export class User {
     id: number;
-    loginstatus: string;
+    loginstatus: boolean;
     username: string;
     password: string;
     firstName: string;

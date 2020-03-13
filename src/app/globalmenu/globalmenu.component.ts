@@ -4,7 +4,6 @@ import { MediaObserver } from '@angular/flex-layout';
 
 import { AuthService } from '../auth.service';
 
-
 @Component({
   selector: 'app-globalmenu',
   templateUrl: './globalmenu.component.html',
@@ -17,20 +16,15 @@ export class GlobalmenuComponent implements OnInit {
   logoWidth = '25px';
   logoHeight = '25px';
   openOrClosed = true;
-  loginStatus = true;
 
   constructor(public router: Router, public media: MediaObserver, public auth: AuthService ) {
-  /*   auth.getUser().subscribe(
-      res => {console.log(JSON.parse(res.loginstatus)); },
-      err => {console.log(JSON.parse(err.loginstatus)); }
-  );
-  auth.getUser()
-  } */
+    auth.userinf.subscribe(val => {
+      this.openOrClosed = val['loginstatus'];
+      })
   }
 
   ngOnInit(): void {
 
-    console.log();
     if (this.media.isActive('xs') || this.media.isActive('sm') || this.media.isActive('md') ) {
       this.logoUrl = 'assets/img/WBBLogoSm.webp';
       this.logoWidth = '45px';
@@ -42,6 +36,13 @@ export class GlobalmenuComponent implements OnInit {
       this.logoHeight = '100px';
       this.logoUrl = 'assets/img/WBBLogo.webp';
     }
+  }
+
+  logout() {
+    this.auth.logout().subscribe(
+      response => console.log(response),
+      err => console.log(err)
+    );
   }
 
   navigateToLink(url: string) {
