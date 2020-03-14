@@ -27,8 +27,8 @@ export class GlobalmenuComponent implements OnInit {
 
     if (this.media.isActive('xs') || this.media.isActive('sm') || this.media.isActive('md') ) {
       this.logoUrl = 'assets/img/WBBLogoSm.webp';
-      this.logoWidth = '45px';
-      this.logoHeight = '45px';
+      this.logoWidth = '40px';
+      this.logoHeight = '40px';
       this.showText = false;
     } else {
       this.showText = true;

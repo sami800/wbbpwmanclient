@@ -7,12 +7,12 @@
         <mat-icon>perm_identity</mat-icon>
         <label for="username"><b>Username:</b></label>
         <input type="text" placeholder="Enter Username Here"
-        ([value])=username/><br><br>
+        ([value])=usertolog.email/><br><br>
         <mat-icon>vpn_key</mat-icon>
         <label for="password"><b>Password:</b></label>
         <input type="password" placeholder="Enter Password Here"
-        ([value])=password/><br><br>
-        <button mat-raise-button (click)="login(username, password)"><mat-icon>lock_open</mat-icon>Login</button><br><br>
+        ([value])=usertolog.password/><br><br>
+        <button mat-raise-button (click)="adduser()"><mat-icon>lock_open</mat-icon>Login</button><br><br>
         <a routerLink="/register" >Register</a>
 </form>
 </div>

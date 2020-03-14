@@ -3,11 +3,14 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { User } from './usermodel';
-import { BehaviorSubject } from 'rxjs';
+import { UserLogin } from './userloginmodel';
+
+import { BehaviorSubject, Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
+    'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST',
     'Access-Control-Allow-Headers': '*',
     'Access-Control-Expose-Headers': '*'
@@ -21,11 +24,11 @@ export class AuthService {
   public headers: HttpHeaders;
   public userinf: BehaviorSubject<User> = new BehaviorSubject<User>({
     id : 0,
-        loginstatus: false,
-        username: 'temp',
-        password: 'temp',
-        firstName: 'temp',
-        loginTime: '0',
+    loginstatus: false,
+    username: 'temp',
+    password: 'temp',
+    firstName: 'temp',
+    loginTime: '0',
   });
 
   constructor(private http: HttpClient, private router: Router) {
@@ -38,18 +41,18 @@ export class AuthService {
       });
     }
 
-    login(uname: string, pword: string) {
+    login(userdeets: UserLogin): Observable<UserLogin> {
       // will navigation to the IF below when access point is done.
       this.navigateToLink('/home');
       this.userinf.next({...this.userinf.value, loginstatus: true})
-      return this.http.post<any>('https://wbbpasswordmanager.appspot.com/auth/login', { email : uname , password : pword },
+      return this.http.post<UserLogin>('https://wbbpasswordmanager.appspot.com/auth/login', JSON.stringify(userdeets) ,
       httpOptions ).pipe(map(user => {
-        if (user && user.token) {
+        if (user) {
           for (let field in user) {
             localStorage.setItem(field , JSON.stringify(user[field]))
           }}
           return user;
-      }))
+      }));
     }
 
     logout() {

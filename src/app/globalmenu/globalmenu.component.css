@@ -2,8 +2,9 @@
 img {
   display: flex;
   flex-grow: 0;
-  height: 55px;
-  width: 55px;
+  height: 45px;
+  width: 45px;
+  margin-top:5px;
 }
 
 .openClose {
@@ -43,42 +44,43 @@ img {
   display: flex;
   flex-flow: column;
   flex-grow: 1;
-  height: 80vh;
+  height: 86vh;
   align-items: center;
   justify-content: flex-start space-around;
 }
- 
-.sidenav {
-  padding: 5px;
+
+.sidenav-content-smaller {
+  display: flex;
+  flex-flow: column;
+  flex-basis: content;
+  height: 90vh;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 mat-icon {
-  padding:2px;
+  padding:1px;
 }
 
 .sidenav-button {
   width:100%;
+  padding:3px 0px !important;
+  margin:3px 0px !important;
 }
 
 .sidenav-settings-button {
   display: flex;
   flex-flow: row;
-  width:100%;
-  align-items: center;
+  flex-grow: 1;
+  align-items: flex-end;
+  align-self: flex-end;
 }
 
 .sidenav-bottom-button {
   display: flex;
   flex-flow: row;
-  flex-basis: inherit;
-  width: 100%;
-  align-items: center;
+  flex-grow: 1;
+  align-items: flex-end;
   align-self: flex-end;
 }
-
-a {
-  padding: 5px;
-  margin:5px;
-}
-
   

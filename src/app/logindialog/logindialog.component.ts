@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { UserLogin } from '../userloginmodel';
 
 @Component({
   selector: 'app-logindialog',
@@ -8,19 +9,19 @@ import { AuthService } from '../auth.service';
 })
 export class LogindialogComponent implements OnInit {
 
-  username;
-  password;
+  usertolog = new UserLogin();
 
-  constructor(public auth: AuthService) {}
 
-  ngOnInit(): void {}
-  
-  login(username: string, password: string) {
-    this.auth.login(username, password).subscribe(
-      response => console.log(response),
-      err => console.log(err)
-    );
+  constructor(public auth: AuthService) {
   }
-  
 
+  ngOnInit(): void {
+    this.usertolog = new UserLogin();
+  }
+
+  adduser() {
+    this.auth.login (this.usertolog).subscribe( (data) => {
+     console.log(data.email);
+    });
+  }
 }
