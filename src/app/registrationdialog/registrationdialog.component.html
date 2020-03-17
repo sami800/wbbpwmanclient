@@ -3,7 +3,7 @@
 </header>
 
 <div fxLayout="column">
-<form> 
+    <form [formGroup]="registrationForm" (submit)="register(registrationForm)">
 
 <fieldset>
     <mat-icon>perm_identity</mat-icon>

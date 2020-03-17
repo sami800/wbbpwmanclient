@@ -1,75 +1,71 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
 import { User } from './usermodel';
-import { UserLogin } from './userloginmodel';
+import { UserToken } from './usermodeltoken';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST',
-    'Access-Control-Allow-Headers': '*',
-    'Access-Control-Expose-Headers': '*'
-  })
-};
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  public headers: HttpHeaders;
-  public userinf: BehaviorSubject<User> = new BehaviorSubject<User>({
-    id : 0,
-    loginstatus: false,
-    username: 'temp',
-    password: 'temp',
-    firstName: 'temp',
-    loginTime: '0',
-  });
 
-  constructor(private http: HttpClient, private router: Router) {
+  APISERVER = "https://wbbpasswordmanager.appspot.com/";
 
-    this.userinf.subscribe(val => {
-        for (let item in val) {
-          localStorage.setItem(item, val[item])
-        }
-        console.log(val);
-      });
-    }
+  authSubject  =  new  BehaviorSubject(false);
 
-    login(userdeets: UserLogin): Observable<UserLogin> {
-      // will navigation to the IF below when access point is done.
-      this.navigateToLink('/home');
-      this.userinf.next({...this.userinf.value, loginstatus: true})
-      return this.http.post<UserLogin>('https://wbbpasswordmanager.appspot.com/auth/login', JSON.stringify(userdeets) ,
-      httpOptions ).pipe(map(user => {
-        if (user) {
-          for (let field in user) {
-            localStorage.setItem(field , JSON.stringify(user[field]))
-          }}
-          return user;
-      }));
-    }
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
-    logout() {
-      // will move navigation to IF below when access point is done.
-      this.navigateToLink('/');
-      this.userinf.next({...this.userinf.value, loginstatus: false})
-      const postData = { email : localStorage.getItem('username')};
-      return this.http.post(`https://wbbpasswordmanager.appspot.com/auth/logout`, postData, httpOptions).pipe(map(user => {
-        if (user) {
-          for (let field in user) {
-            localStorage.removeItem(field)
+    register(user: User): Observable<UserToken> {
+      return this.httpClient.post<UserToken>(`${this.APISERVER}auth/register`, user).pipe(
+        tap((res:  UserToken ) => {
+          if (res.user) {
+            for (let item in res.user) {
+              localStorage.setItem(item, res.user[item])
+            }
+            this.authSubject.next(true);
           }
-        } else {
-          alert('Could not log out ' + localStorage.getItem('username') + ' Client offline');
-        }
-      }));
+        })
+  
+      );
     }
+
+    signIn(user: User): Observable<UserToken> {
+      this.authSubject.next(true);
+      this.navigateToLink('/home');
+      console.log(user);
+      return this.httpClient.post(`${this.APISERVER}auth/login`, user).pipe(
+        tap(async (res: UserToken) => {
+          if (res.user) {
+            for (let item in res.user) {
+              localStorage.setItem(item, res.user[item])
+            }
+            this.authSubject.next(true);
+          }
+        })
+      );
+    }
+
+    signOut(user: User): Observable<UserToken> {
+      this.authSubject.next(false);
+      this.navigateToLink('/');
+      return this.httpClient.post(`${this.APISERVER}auth/logout`, user).pipe(
+        tap(async (res: UserToken) => {
+          if (res.user) {
+            localStorage.removeItem("ACCESS_TOKEN");
+            localStorage.removeItem("EXPIRES_IN");
+            this.authSubject.next(false);
+          }
+        })
+      );
+    }
+
+    isAuthenticated() {
+      return  this.authSubject.asObservable();
+    }
+
     navigateToLink(url: string) {
       this.router.navigateByUrl(url);
     }

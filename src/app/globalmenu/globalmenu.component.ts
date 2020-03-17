@@ -18,8 +18,8 @@ export class GlobalmenuComponent implements OnInit {
   openOrClosed = true;
 
   constructor(public router: Router, public media: MediaObserver, public auth: AuthService ) {
-    auth.userinf.subscribe(val => {
-      this.openOrClosed = val['loginstatus'];
+    auth.isAuthenticated().subscribe(val => {
+      this.openOrClosed = val.valueOf();
       })
   }
 
@@ -39,7 +39,7 @@ export class GlobalmenuComponent implements OnInit {
   }
 
   logout() {
-    this.auth.logout().subscribe(
+    this.auth.signOut(JSON.parse(localStorage.getItem('username'))).subscribe(
       response => console.log(response),
       err => console.log(err)
     );

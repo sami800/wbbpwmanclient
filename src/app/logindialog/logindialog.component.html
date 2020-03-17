@@ -1,18 +1,18 @@
-<header>
-<h1>Login</h1>
-</header>
 
-<div>
-<form align="center">
-        <mat-icon>perm_identity</mat-icon>
-        <label for="username"><b>Username:</b></label>
-        <input type="text" placeholder="Enter Username Here"
-        ([value])=usertolog.email/><br><br>
-        <mat-icon>vpn_key</mat-icon>
-        <label for="password"><b>Password:</b></label>
-        <input type="password" placeholder="Enter Password Here"
-        ([value])=usertolog.password/><br><br>
-        <button mat-raise-button (click)="adduser()"><mat-icon>lock_open</mat-icon>Login</button><br><br>
-        <a routerLink="/register" >Register</a>
+<h1>Login</h1>
+
+<div class="loginform">
+<form [formGroup]="loginForm" (submit)="login(loginForm)">
+<p>
+    <mat-form-field>
+        <mat-icon matSuffix>perm_identity</mat-icon><input type="text" matInput placeholder="Email" formControlName="email">
+    </mat-form-field>
+</p>
+<p>
+    <mat-form-field>
+        <mat-icon matSuffix>vpn_key</mat-icon><input type="password" matInput placeholder="Password" formControlName="password">
+    </mat-form-field>
+</p>
+<button mat-raised-button type="submit"><mat-icon matSuffix>lock_open</mat-icon>Login</button>
 </form>
 </div>
