@@ -25,6 +25,9 @@ import { UsersettingsComponent } from './usersettings/usersettings.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AuthService } from './auth.service';
 import { LocalDBserviceService } from './local-dbservice.service';
@@ -57,10 +60,13 @@ import { LocalDBserviceService } from './local-dbservice.service';
     HttpClientModule,
     MatTabsModule,
     MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [ AuthService, LocalDBserviceService ],
   bootstrap: [ AppComponent ],
-  exports: [ MatSidenavModule, FlexLayoutModule, HttpClientModule ]
+  exports: [ MatSidenavModule, FlexLayoutModule, HttpClientModule, MatFormFieldModule]
 })
 export class AppModule { }

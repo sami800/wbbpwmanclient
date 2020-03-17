@@ -14,7 +14,10 @@
       </mat-icon>
     </div>
 
-    <div class="sidenav-content">
+    <div ngClass="sidenav-content"
+      [ngClass.xs]="{'sidenav-content-smaller':true ,'sidenav-content':false}"
+      [ngClass.sm]="{'sidenav-content-smaller':true ,'sidenav-content':false}"
+      [ngClass.md]="{'sidenav-content-smaller':true ,'sidenav-content':false}" >
     
       <img [src]="logoUrl" [style.width]="logoWidth" [style.height]="logoHeight" alt="WBB Pasword Manager Logo" (error)="logoUrl = 'assets/icons/icon-512x512.png'">
       
@@ -25,13 +28,14 @@
       <a mat-button aria-label="Menu button, click to add a password" (click)="navigateToLink('/newpassword')" class="sidenav-button"><mat-icon>add_circle</mat-icon> {{showText ? 'New Password' : ''}}</a>
       <a mat-button aria-label="Menu button, click for help" (click)="navigateToLink('/help')" class="sidenav-button"><mat-icon>help</mat-icon> {{showText ? 'Help' : ''}}</a>
     
+      <div class="sidenav-bottom-button">
+        <a class="sidenav-button" mat-button aria-label="Menu button, click to log out" (click)="this.logout()"><mat-icon>exit_to_app</mat-icon> {{showText ? 'Logout' : ''}}</a>
+      <div *ngIf="showText">
+        <a class="sidenav-button" mat-button aria-label="Menu button, click to open settings" (click)="navigateToLink('/usersettings')"><mat-icon>settings</mat-icon>Settings</a>
+      </div>
     </div>
 
-    <div class="sidenav-bottom-button">
-      <a mat-button aria-label="Menu button, click to log out" (click)="this.logout()"><mat-icon>exit_to_app</mat-icon> {{showText ? 'Logout' : ''}}</a>
-      <div *ngIf="showText">
-        <a mat-button aria-label="Menu button, click to open settings" (click)="navigateToLink('/usersettings')"><mat-icon>settings</mat-icon>Settings</a>
-      </div>
+
   </div>
 
   </mat-drawer>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-logindialog',
@@ -7,20 +9,24 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./logindialog.component.css']
 })
 export class LogindialogComponent implements OnInit {
-
-  username;
-  password;
-
-  constructor(public auth: AuthService) {}
-
-  ngOnInit(): void {}
   
-  login(username: string, password: string) {
-    this.auth.login(username, password).subscribe(
-      response => console.log(response),
-      err => console.log(err)
-    );
+  loginForm: FormGroup;
+
+  constructor(public auth: AuthService, public router: Router) {}
+
+  ngOnInit(): void {
+   this.loginForm = new FormGroup({
+      email: new FormControl(),
+      password: new FormControl()
+    });
+    this.loginForm.controls.email.setValue('');
+    this.loginForm.controls.password.setValue('');
   }
-  
 
+  login(loginForm){
+    this.auth.signIn(loginForm.value).subscribe((res)=>{
+      console.log("Logged in!");
+      this.router.navigateByUrl('home');
+    });    
+  }
 }
