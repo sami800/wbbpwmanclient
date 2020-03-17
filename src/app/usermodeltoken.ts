@@ -1,12 +1,9 @@
 export interface UserToken {
-    user: {
+    success: boolean;
     id: number;
-    loginstatus: boolean;
-    username: string;
+    name: string;
     email: string;
-    password: string;
-    firstName: string;
-    token?: string;
-    loginTime: string;
-    }
+    access_token: string;
+    token_type: string;
+    expires_at: string;
 }

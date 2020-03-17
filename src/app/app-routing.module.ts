@@ -9,16 +9,17 @@ import { UsersettingsComponent } from './usersettings/usersettings.component';
 import { CheckupComponent } from './checkup/checkup.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { RegistrationdialogComponent } from './registrationdialog/registrationdialog.component';
+import { AuthGuard } from './authcheck.guard';
 
 const routes: Routes = [
   { path: '', component: LandingpageComponent },
   { path: 'login', component: LogindialogComponent },
-  { path: 'home', component: UserhomeComponent },
-  { path: 'passwordlist', component: PasswordlistComponent },
-  { path: 'newpassword', component: NewpasswordComponent },
-  { path: 'checkup', component: CheckupComponent },
-  { path: 'help', component: HelpComponent },
-  { path: 'usersettings', component: UsersettingsComponent },
+  { path: 'home', component: UserhomeComponent, canActivate: [AuthGuard] },
+  { path: 'passwordlist', component: PasswordlistComponent, canActivate: [AuthGuard]  },
+  { path: 'newpassword', component: NewpasswordComponent, canActivate: [AuthGuard]  },
+  { path: 'checkup', component: CheckupComponent, canActivate: [AuthGuard]  },
+  { path: 'help', component: HelpComponent, canActivate: [AuthGuard]  },
+  { path: 'usersettings', component: UsersettingsComponent, canActivate: [AuthGuard]  },
   { path: 'register', component: RegistrationdialogComponent },
   { path: 'registration', component: RegistrationdialogComponent }
 ];

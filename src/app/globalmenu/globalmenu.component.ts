@@ -39,10 +39,10 @@ export class GlobalmenuComponent implements OnInit {
   }
 
   logout() {
-    this.auth.signOut(JSON.parse(localStorage.getItem('username'))).subscribe(
-      response => console.log(response),
-      err => console.log(err)
-    );
+    this.auth.signOut().subscribe((res)=>{
+      console.log(res);
+      console.log(localStorage.getItem('name') + " Logged Out!");
+    });    
   }
 
   navigateToLink(url: string) {

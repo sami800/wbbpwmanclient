@@ -31,6 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AuthService } from './auth.service';
 import { LocalDBserviceService } from './local-dbservice.service';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { NewSnackBarMessage } from './snack-bar-message/snack-bar-message.component';
 
 
 @NgModule({
@@ -46,7 +48,8 @@ import { LocalDBserviceService } from './local-dbservice.service';
     NewpasswordComponent,
     HelpComponent,
     UsersettingsComponent,
-    LandingpageComponent
+    LandingpageComponent,
+    NewSnackBarMessage,
   ],
   imports: [
     BrowserModule,
@@ -63,10 +66,12 @@ import { LocalDBserviceService } from './local-dbservice.service';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatSnackBarModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [ AuthService, LocalDBserviceService ],
+  entryComponents: [ NewSnackBarMessage ],
+  providers: [ AuthService, LocalDBserviceService, {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}} ],
   bootstrap: [ AppComponent ],
-  exports: [ MatSidenavModule, FlexLayoutModule, HttpClientModule, MatFormFieldModule]
+  exports: [ MatSidenavModule, FlexLayoutModule, HttpClientModule, MatFormFieldModule, MatSnackBarModule ]
 })
 export class AppModule { }
