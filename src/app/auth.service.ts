@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { User } from './usermodel';
 import { UserToken } from './usermodeltoken';
@@ -16,7 +16,7 @@ export class AuthService {
 
   authSubject  =  new  BehaviorSubject(false);
 
-  constructor(private httpClient: HttpClient, private router: Router) {}
+   constructor(private httpClient: HttpClient, private router: Router) {}
 
     register(user: User): Observable<UserToken> {
       return this.httpClient.post<UserToken>(`${this.APISERVER}auth/register`, user).pipe(
