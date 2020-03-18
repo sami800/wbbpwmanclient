@@ -50,7 +50,7 @@ export class AuthService implements AfterViewChecked {
       console.log(user);
       return this.httpClient.post<UserToken>(`${this.APISERVER}auth/login`, user).pipe(
         tap(async (res: UserToken) => {
-          if (res.success) {
+          if (res) {
             for (let item in res) {
               localStorage.setItem(item, res[item])
             }
