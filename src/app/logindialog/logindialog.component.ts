@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,13 +12,21 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class LogindialogComponent implements OnInit {
 
-  
+  loggedIn: boolean;
+
   loginForm: FormGroup;
 
-  constructor(public auth: AuthService, public router: Router, private snackBar: MatSnackBar) {}
+  constructor(private router: Router, private auth: AuthService, private snackBar: MatSnackBar) {
+    this.auth.isAuthenticated().subscribe(val => {
+      this.loggedIn = val.valueOf();
+      })
+  }
 
   ngOnInit(): void {
-
+    if (this.loggedIn) {
+      this.router.navigate(['/home'])
+    }
+    
     this.loginForm = new FormGroup({
       email: new FormControl(),
       password: new FormControl()

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import Dexie from 'dexie';
-import { IContactInfo } from './icontactinfo';
-import { IPasswordRecord } from './ipassword-record';
+import { IContactInfo } from '../models/icontactinfo';
+import { IPasswordRecord } from '../models/ipassword-record';
 
 @Injectable({
   providedIn: 'root'

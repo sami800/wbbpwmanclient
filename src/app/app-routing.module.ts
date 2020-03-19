@@ -1,28 +1,27 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserhomeComponent } from './userhome/userhome.component';
-import { LogindialogComponent } from './logindialog/logindialog.component';
 import { PasswordlistComponent } from './passwordlist/passwordlist.component';
 import { NewpasswordComponent } from './newpassword/newpassword.component';
 import { HelpComponent } from './help/help.component';
 import { UsersettingsComponent } from './usersettings/usersettings.component';
 import { CheckupComponent } from './checkup/checkup.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
-import { RegistrationdialogComponent } from './registrationdialog/registrationdialog.component';
-import { AuthGuard } from './authcheck.guard';
+import { AuthGuard } from './auth/authcheck.guard';
 
 const routes: Routes = [
-  { path: '', component: LandingpageComponent },
-  { path: 'login', component: LogindialogComponent },
+  { path: '', redirectTo: 'welcome', pathMatch: 'full'},
+  { path: 'welcome', component: LandingpageComponent, canActivate: [AuthGuard], data: {index: 0}},
+  { path: 'login', component: LandingpageComponent, canActivate: [AuthGuard], data: {index: 1}},
   { path: 'home', component: UserhomeComponent, canActivate: [AuthGuard] },
-  { path: 'passwordlist', component: PasswordlistComponent, canActivate: [AuthGuard]  },
-  { path: 'newpassword', component: NewpasswordComponent, canActivate: [AuthGuard]  },
-  { path: 'checkup', component: CheckupComponent, canActivate: [AuthGuard]  },
-  { path: 'help', component: HelpComponent, canActivate: [AuthGuard]  },
-  { path: 'usersettings', component: UsersettingsComponent, canActivate: [AuthGuard]  },
-  { path: 'register', component: RegistrationdialogComponent },
-  { path: 'registration', component: RegistrationdialogComponent }
-];
+  { path: 'passwordlist', component: PasswordlistComponent, canActivate: [AuthGuard] },
+  { path: 'newpassword', component: NewpasswordComponent, canActivate: [AuthGuard] },
+  { path: 'checkup', component: CheckupComponent, canActivate: [AuthGuard] },
+  { path: 'help', component: HelpComponent, canActivate: [AuthGuard] },
+  { path: 'usersettings', component: UsersettingsComponent, canActivate: [AuthGuard], data : { index:'1'}},
+  { path: 'register', component: LandingpageComponent, canActivate: [AuthGuard], data: {index: 2}},
+  { path: 'registration', component: LandingpageComponent, canActivate: [AuthGuard], data: {index: 2}}
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

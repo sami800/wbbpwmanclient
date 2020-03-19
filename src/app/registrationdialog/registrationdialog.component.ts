@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -12,11 +12,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class RegistrationdialogComponent implements OnInit {
 
   registrationForm: FormGroup;
+  loggedIn: boolean;
 
-  constructor(public auth: AuthService, public router: Router, private snackBar: MatSnackBar) {}
+  constructor(private router: Router, private auth: AuthService, private snackBar: MatSnackBar) {
+    this.auth.isAuthenticated().subscribe(val => {
+      this.loggedIn = val.valueOf();
+      })
+  }
 
   ngOnInit(): void {
-   this.registrationForm = new FormGroup({
+    if (this.loggedIn) {
+      this.router.navigate(['/home'])
+    }
+
+    this.registrationForm = new FormGroup({
       email: new FormControl(),
       password: new FormControl()
     });

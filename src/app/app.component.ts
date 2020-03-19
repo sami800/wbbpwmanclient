@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LocalDBserviceService } from './local-dbservice.service'
+import { LocalDBserviceService } from './dataservices/local-dbservice.service'
 
 @Component({
   selector: 'app-root',

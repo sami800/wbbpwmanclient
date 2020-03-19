@@ -29,8 +29,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { AuthService } from './auth.service';
-import { LocalDBserviceService } from './local-dbservice.service';
+import { AuthService } from './auth/auth.service';
+import { LocalDBserviceService } from './dataservices/local-dbservice.service';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { NewSnackBarMessage } from './snack-bar-message/snack-bar-message.component';
 

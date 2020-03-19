@@ -2,8 +2,8 @@ import { Injectable, AfterViewChecked } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
-import { User } from './usermodel';
-import { UserToken } from './usermodeltoken';
+import { User } from '../models/usermodel';
+import { UserToken } from '../models/usermodeltoken';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -67,7 +67,7 @@ export class AuthService implements AfterViewChecked {
       this.openSnackBar( username +' signed out', 'OK');
       this.authSubject.next(false);
       localStorage.clear();
-      this.navigateToLink('/');
+      this.navigateToLink('/login');
       return this.httpClient.get(`${this.APISERVER}auth/logout`, { observe: 'response', headers:{ 'access_token': JSON.stringify(localStorage.getItem('access_token'))}}).pipe(
         tap(async (res: any) => {
           if (res) {
@@ -75,10 +75,9 @@ export class AuthService implements AfterViewChecked {
               console.log(item);
             }
             this.openSnackBar( username +' signed out', 'OK');
-            this.authSubject.next(false);
-            history.pushState(null, null, '/');
-            this.navigateToLink('/');
-          }
+            this.authSubject.next(false)
+            this.navigateToLink('/login');
+            }
         })
       );
     }

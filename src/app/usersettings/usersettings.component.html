@@ -1,18 +1,30 @@
-<div class=lbl>Settings</div>
 
-<div class="example-button-row">
-    <div>
-        <button mat-button>Change Password</button>
-    </div>
-    <div>
-        <button mat-button>Regenerate Private Key</button>
-    </div>
-    <div>
-        <button mat-button>Delete Account</button>
-    </div>
-    <div>
-        <button mat-button>Logout</button>
-    </div>
+<div class="settingsHeaderButtons" *ngIf="currentTab.value != 0" >
+    <button (click)="updateCurrentTab(0)" mat-button autosize>Back to user settings <mat-icon matSuffix>settings</mat-icon></button>
 </div>
 
-<!-- </div> -->
+<mat-tab-group [selectedIndex]="currentTab.value">
+        <mat-tab id="prodtitle" label="WBB Password Manager">
+            <div class=lbl>Settings</div>
+
+            <div class="example-button-row">
+                <div>
+                    <button mat-button (click)="updateCurrentTab(1)">Change Password</button>
+                </div>
+                <div>
+                    <button mat-button (click)="updateCurrentTab(2)">Regenerate Private Key</button>
+                </div>
+                <div>
+                    <button mat-button (click)="updateCurrentTab(3)">Delete Account</button>
+                </div>
+            </div>
+
+        </mat-tab>
+
+        <mat-tab class="changePassword" label="Change Password"></mat-tab>
+
+        <mat-tab class="updateKey" label="Regenerate Private Key"></mat-tab>
+
+        <mat-tab class="deleteAccount" label="Delete Account"></mat-tab>
+
+</mat-tab-group>
