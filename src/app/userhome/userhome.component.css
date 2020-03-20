@@ -1,0 +1,12 @@
+h1 {
+    font-size: 2em;
+    margin-top: 10%;
+    /* margin-bottom: 12%; */
+    color: rgb(47, 47, 204);
+}
+
+mat-label {
+    text-align: center;
+    align-self: center;
+    padding: 2px;
+}

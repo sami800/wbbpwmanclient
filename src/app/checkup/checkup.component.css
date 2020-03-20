@@ -1,0 +1,28 @@
+h1 {
+    font-size: 2em;
+    margin-top: 10%;
+    margin-bottom: 2%;
+}
+
+ :host /deep/ .loginform {
+    display: flex;
+    flex-grow: 1;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center space-around;
+    margin: 5%;
+}
+
+form {
+    display: flex;
+    flex-grow: 1;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center space-around;
+}
+
+mat-label {
+    text-align: center;
+    align-self: center;
+    padding: 2px;
+}

@@ -1,1 +1,12 @@
-<p>checkup works!</p>
+<mat-label>
+    <h1>Check if your password has been pawned</h1>
+</mat-label>
+
+<div class="loginform">
+    <p>
+        <mat-form-field>
+            <mat-icon matSuffix>vpn_key</mat-icon><input type="password" matInput placeholder="Password" formControlName="password">
+        </mat-form-field>
+    </p>
+    <button mat-raised-button type="submit"><mat-icon matSuffix>lock_open</mat-icon>Ok</button>
+</div>
