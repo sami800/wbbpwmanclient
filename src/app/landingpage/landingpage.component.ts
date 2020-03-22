@@ -1,5 +1,8 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ɵConsole} from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
+
 
 @Component({
   selector: 'app-landingpage',
@@ -11,10 +14,16 @@ export class LandingpageComponent implements OnInit {
 
   currentTab = new FormControl(0);
 
-  constructor() {
-  }
+  loggedIn: boolean;
 
-  ngOnInit(): void {
+  constructor(private route: ActivatedRoute, private auth: AuthService) {
+    this.auth.isAuthenticated().subscribe(val => {
+      this.loggedIn = val.valueOf();
+    })
+  }
+  
+  ngOnInit() {
+      this.updateCurrentTab(this.route.snapshot.data['index']);
   }
 
   updateCurrentTab(x: number){

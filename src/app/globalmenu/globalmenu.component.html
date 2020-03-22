@@ -1,44 +1,35 @@
 <mat-drawer-container class="menu-container" autosize>
 
-  <button aria-label="Button to expand or shrink menu" *ngIf="openOrClosed" fxHide fxShow.xs fxShow.sm fxShow.md mat-icon-button class="openClose" (click)="showText = !showText">
-    <mat-icon aria-label="Expand or shrink menu icon" class="openCloseIcon">
-      {{showText ? 'arrow_left' : 'arrow_right'}}
-    </mat-icon>
+  <button aria-label="Button to expand menu" class="openCloseIcon" *ngIf="openOrClosed" fxHide fxShow.xs fxShow.sm fxShow.md mat-icon-button class="openClose" (click)="showText = !showText">
+    <mat-icon aria-label="Expand menu icon" >arrow_right</mat-icon>
   </button>
   <router-outlet></router-outlet>
 
   <mat-drawer #drawer [opened]="openOrClosed" class="sidenav" mode="side">
-    <div class="menuHeader">
-      <mat-icon aria-label="Expand or shrink menu icon" fxShow fxHide.xs fxHide.sm fxHide.md (click)="showText = !showText" class="openCloseIconInMenu">
-        {{showText ? 'arrow_left' : 'arrow_right'}}
-      </mat-icon>
-    </div>
 
     <div ngClass="sidenav-content"
       [ngClass.xs]="{'sidenav-content-smaller':true ,'sidenav-content':false}"
       [ngClass.sm]="{'sidenav-content-smaller':true ,'sidenav-content':false}"
       [ngClass.md]="{'sidenav-content-smaller':true ,'sidenav-content':false}" >
-    
-      <img [src]="logoUrl" [style.width]="logoWidth" [style.height]="logoHeight" alt="WBB Pasword Manager Logo" (error)="logoUrl = 'assets/icons/icon-512x512.png'">
-      
+      <div class="menu-logo">
+        <img [src]="logoUrl" [style.width]="logoWidth" [style.height]="logoHeight" alt="WBB Pasword Manager Logo" (error)="logoUrl = 'assets/icons/icon-512x512.png'">
+      </div>
       <br>
 
       <a mat-button aria-label="Menu button, click to open assessment" (click)="navigateToLink('/home')" class="sidenav-button"><mat-icon>assessment</mat-icon> {{showText ? 'Summary' : ''}}</a>
       <a mat-button aria-label="Menu button, click to open run a checkup" (click)="navigateToLink('/checkup')" class="sidenav-button"><mat-icon>search</mat-icon> {{showText ? 'Checkup' : ''}}</a>
       <a mat-button aria-label="Menu button, click to add a password" (click)="navigateToLink('/newpassword')" class="sidenav-button"><mat-icon>add_circle</mat-icon> {{showText ? 'New Password' : ''}}</a>
       <a mat-button aria-label="Menu button, click for help" (click)="navigateToLink('/help')" class="sidenav-button"><mat-icon>help</mat-icon> {{showText ? 'Help' : ''}}</a>
-    
-      <div class="sidenav-bottom-button">
-        <a class="sidenav-button" mat-button aria-label="Menu button, click to log out" (click)="this.logout()"><mat-icon>exit_to_app</mat-icon> {{showText ? 'Logout' : ''}}</a>
-      <div *ngIf="showText">
-        <a class="sidenav-button" mat-button aria-label="Menu button, click to open settings" (click)="navigateToLink('/usersettings')"><mat-icon>settings</mat-icon>Settings</a>
-      </div>
     </div>
 
+    <div class="sidenav-bottom-button">
+      <a class="sidenav-logout-button" mat-button aria-label="Menu button, click to log out" (click)="logout()"><mat-icon>exit_to_app</mat-icon> {{showText ? 'Logout' : ''}}</a>
+    <div *ngIf="showText">
+      <a class="sidenav-settings-button" mat-button aria-label="Menu button, click to open settings" (click)="navigateToLink('/usersettings')"><mat-icon>settings</mat-icon>Settings</a>
+    </div>
 
   </div>
 
   </mat-drawer>
-
 
 </mat-drawer-container>

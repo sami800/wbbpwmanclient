@@ -1,5 +1,4 @@
-export interface UserToken {
-    user: {
+export interface User {
     id: number;
     loginstatus: boolean;
     username: string;
@@ -8,5 +7,4 @@ export interface UserToken {
     firstName: string;
     token?: string;
     loginTime: string;
-    }
 }

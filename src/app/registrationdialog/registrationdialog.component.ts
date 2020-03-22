@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-registrationdialog',
@@ -11,11 +12,20 @@ import { Router } from '@angular/router';
 export class RegistrationdialogComponent implements OnInit {
 
   registrationForm: FormGroup;
+  loggedIn: boolean;
 
-  constructor(public auth: AuthService, public router: Router) {}
+  constructor(private router: Router, private auth: AuthService, private snackBar: MatSnackBar) {
+    this.auth.isAuthenticated().subscribe(val => {
+      this.loggedIn = val.valueOf();
+      })
+  }
 
   ngOnInit(): void {
-   this.registrationForm = new FormGroup({
+    if (this.loggedIn) {
+      this.router.navigate(['/home'])
+    }
+
+    this.registrationForm = new FormGroup({
       email: new FormControl(),
       password: new FormControl()
     });
@@ -24,9 +34,23 @@ export class RegistrationdialogComponent implements OnInit {
   }
 
   register(registrationForm){
-    this.auth.register(registrationForm.value).subscribe((res)=>{
-      console.log("Registration Complete!");
-      this.router.navigateByUrl('home');
-    });    
+    this.auth.register(registrationForm.value).subscribe(
+      (res) => this.onSuccess(res),
+      (error) => this.onErr(error)
+    );
+  }
+  
+  onSuccess(res) {
+    this.auth.navigateToLink('/');
+    console.log(localStorage.getItem('name') + " Registration Complete");
+  }
+
+  onErr(err) {
+    this.openSnackBar( 'Registration Failed', 'OK');
+    console.log(err);
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open( message, action, { panelClass: ['blue-snackbar']});
   }
 }

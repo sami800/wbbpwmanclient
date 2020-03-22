@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MediaObserver } from '@angular/flex-layout';
 
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-globalmenu',
@@ -12,6 +12,7 @@ import { AuthService } from '../auth.service';
 export class GlobalmenuComponent implements OnInit {
 
   showText = false;
+  menuMode = 'push';
   logoUrl = 'assets/img/WBBLogo.webp';
   logoWidth = '25px';
   logoHeight = '25px';
@@ -27,25 +28,28 @@ export class GlobalmenuComponent implements OnInit {
 
     if (this.media.isActive('xs') || this.media.isActive('sm') || this.media.isActive('md') ) {
       this.logoUrl = 'assets/img/WBBLogoSm.webp';
-      this.logoWidth = '40px';
-      this.logoHeight = '40px';
+      this.logoWidth = '55px';
+      this.logoHeight = '55px';
       this.showText = false;
     } else {
       this.showText = true;
-      this.logoWidth = '100px';
-      this.logoHeight = '100px';
+      this.logoWidth = '150px';
+      this.logoHeight = '150px';
       this.logoUrl = 'assets/img/WBBLogo.webp';
     }
   }
 
   logout() {
-    this.auth.signOut(JSON.parse(localStorage.getItem('username'))).subscribe(
-      response => console.log(response),
-      err => console.log(err)
-    );
+    this.auth.signOut().subscribe((res)=>{
+      console.log(res);
+      console.log(localStorage.getItem('name') + " Logged Out!");
+    });    
   }
 
   navigateToLink(url: string) {
+    if (this.media.isActive('xs') || this.media.isActive('sm') || this.media.isActive('md') ) {
+      this.showText = false;
+    }
     this.router.navigateByUrl(url);
   }
 
