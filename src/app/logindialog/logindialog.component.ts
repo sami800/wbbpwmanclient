@@ -16,6 +16,9 @@ export class LogindialogComponent implements OnInit {
 
   loginForm: FormGroup;
 
+  visibilityIcon = true;
+
+
   constructor(private router: Router, private auth: AuthService, private snackBar: MatSnackBar) {
     this.auth.isAuthenticated().subscribe(val => {
       this.loggedIn = val.valueOf();

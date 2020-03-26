@@ -27,3 +27,7 @@ mat-label {
   align-self: center;
   padding:2px;
 }
+
+mat-icon {
+  padding-left:8px;
+}

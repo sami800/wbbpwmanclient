@@ -15,10 +15,10 @@ const routes: Routes = [
   { path: 'login', component: LandingpageComponent, canActivate: [AuthGuard], data: {index: 1}},
   { path: 'home', component: UserhomeComponent, canActivate: [AuthGuard] },
   { path: 'passwordlist', component: PasswordlistComponent, canActivate: [AuthGuard] },
-  { path: 'newpassword', component: NewpasswordComponent, canActivate: [AuthGuard] },
+  { path: 'newpassword', component: NewpasswordComponent, canActivate: [AuthGuard], data: {index: 0}},
   { path: 'checkup', component: CheckupComponent, canActivate: [AuthGuard] },
   { path: 'help', component: HelpComponent, canActivate: [AuthGuard] },
-  { path: 'usersettings', component: UsersettingsComponent, canActivate: [AuthGuard], data : { index:'1'}},
+  { path: 'usersettings', component: UsersettingsComponent, canActivate: [AuthGuard], data : { index: 0}},
   { path: 'register', component: LandingpageComponent, canActivate: [AuthGuard], data: {index: 2}},
   { path: 'registration', component: LandingpageComponent, canActivate: [AuthGuard], data: {index: 2}}
 ]

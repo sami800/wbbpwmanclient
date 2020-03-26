@@ -10,7 +10,8 @@
 </p>
 <p>
     <mat-form-field>
-        <mat-icon matSuffix>vpn_key</mat-icon><input type="password" matInput placeholder="Password" formControlName="password">
+        <mat-icon matSuffix>vpn_key</mat-icon><input type="{{!visibilityIcon ? 'password' : 'text' }}" matInput placeholder="Password" formControlName="password">
+        <mat-icon (click)="visibilityIcon = !visibilityIcon" matSuffix>{{!visibilityIcon ? 'visibility' : 'visibility_off' }}</mat-icon>                  
     </mat-form-field>
 </p>
 <button mat-raised-button type="submit"><mat-icon matSuffix>lock_open</mat-icon>Login</button><br><br>

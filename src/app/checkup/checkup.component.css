@@ -1,28 +1,58 @@
 h1 {
     font-size: 2em;
-    margin-top: 10%;
-    margin-bottom: 2%;
-}
-
- :host /deep/ .loginform {
-    display: flex;
-    flex-grow: 1;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center space-around;
-    margin: 5%;
+    margin:2%;
+    text-align: center;
 }
 
 form {
     display: flex;
+    height: 60vh;
     flex-grow: 1;
     flex-flow: column;
     align-items: center;
     justify-content: center space-around;
+    margin: 10%;
 }
+
 
 mat-label {
     text-align: center;
     align-self: center;
     padding: 2px;
+}
+
+mat-icon {
+    padding-left:8px;
+    padding-right:8px;
+}
+
+.pageContainer {
+    display: flex;
+    height: 80vh;
+    flex-grow: 1;
+    flex-direction: column;
+    flex-flow: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center space-around;
+    margin: 6%;
+}
+
+.mat-card {
+    display: flex;
+    flex-grow: 1;
+    margin-top:8vh;
+    padding-left:3vw;
+    padding-right:3vw;
+    margin-left:3vw;
+    margin-right:3vw;
+    flex-direction: column;
+    align-content: center;
+    align-self: center;
+}
+
+.mat-form-field {
+    text-align: center;
+    max-width: 50vw !important;
+    min-width: 260px;
 }

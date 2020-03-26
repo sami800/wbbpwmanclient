@@ -1,6 +1,6 @@
 
 <div class="settingsHeaderButtons" *ngIf="currentTab.value != 0" >
-    <button (click)="updateCurrentTab(0)" mat-button autosize>Back to user settings <mat-icon matSuffix>settings</mat-icon></button>
+    <button (click)="updateCurrentTab(0)" mat-button autosize><mat-icon matPrefix>arrow_left</mat-icon> Back to user settings</button>
 </div>
 
 <mat-tab-group [selectedIndex]="currentTab.value">
