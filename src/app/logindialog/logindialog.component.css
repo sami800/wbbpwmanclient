@@ -31,3 +31,9 @@ mat-label {
 mat-icon {
   padding-left:8px;
 }
+
+.mat-form-field {
+  text-align: center;
+  max-width: 50vw !important;
+  min-width: 260px;
+}
