@@ -54,7 +54,7 @@ export class NewpasswordComponent implements OnInit {
   }
 
   submitGeneratedPW(generatePWForm){
-    if (this.generatePWForm.controls.domain.value != '' && this.validateDomain(this.generatePWForm.controls.domain.value) && this.generatePWForm.controls.password.value != '') {
+    if (generatePWForm.controls.domain != '' && generatePWForm.controls.password != '') {
       this.db.syncData(generatePWForm.value).subscribe(
         (res) => this.onSuccess(res),
         (error) => this.onErr(error)
@@ -63,7 +63,7 @@ export class NewpasswordComponent implements OnInit {
   }
 
   submitNewPW(savePWForm){
-    if (this.savePWForm.controls.domain.value != '' && this.validateDomain(this.savePWForm.controls.domain.value) && this.savePWForm.controls.password.value != '') {
+    if (savePWForm.controls.domain != '' && savePWForm.controls.password != '') {
       this.db.syncData(savePWForm.value).subscribe(
         (res) => this.onSuccess(res),
         (error) => this.onErr(error)

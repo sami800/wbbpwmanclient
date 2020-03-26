@@ -16,7 +16,7 @@ export class LogindialogComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  visibilityIcon = true;
+  visibilityIcon = false;
 
 
   constructor(private router: Router, private auth: AuthService, private snackBar: MatSnackBar) {
