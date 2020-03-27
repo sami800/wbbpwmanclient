@@ -1,12 +1,27 @@
-<mat-label>
-    <h1>Check if your password has been pawned</h1>
-</mat-label>
+<div class="pageContainer">
+    <h1>Checkup</h1>
+        <div class="checkupForm">
+        <form [formGroup]="checkupForm" (submit)="checkup(checkupForm)">
+                <mat-form-field>
+                    <mat-icon matSuffix>vpn_key</mat-icon><input type="{{!visibilityIcon ? 'password' : 'text' }}" matInput placeholder="Password" formControlName="password">
+                    <mat-icon (click)="visibilityIcon = !visibilityIcon" matSuffix>{{!visibilityIcon ? 'visibility' : 'visibility_off' }}</mat-icon>                  
+                </mat-form-field>
 
-<div class="loginform">
-    <p>
-        <mat-form-field>
-            <mat-icon matSuffix>vpn_key</mat-icon><input type="password" matInput placeholder="Password" formControlName="password">
-        </mat-form-field>
-    </p>
-    <button mat-raised-button type="submit"><mat-icon matSuffix>lock_open</mat-icon>Ok</button>
+            <button mat-raised-button type="submit"><mat-icon matSuffix>check</mat-icon>Check It</button><br><br>
+        </form>
+        </div>
+
+<mat-card *ngIf="anyResults">
+    <mat-card-content>
+        <mat-grid-list  *ngIf="anyResults" cols="2">
+            <mat-grid-tile
+                *ngFor="let result of searchResults"
+                [colspan]="result.cols"
+                [rowspan]="result.rows"
+                [style.background]="result.color">
+                {{result.text}}
+            </mat-grid-tile>
+            </mat-grid-list>
+    </mat-card-content>
+</mat-card>
 </div>
