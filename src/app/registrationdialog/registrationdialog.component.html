@@ -1,37 +1,26 @@
-<header>
-<h1>Registration Form</h1>
-</header>
+<header>Registration Form</header>
 
 <div fxLayout="column">
     <form [formGroup]="registrationForm" (submit)="register(registrationForm)">
 
-<fieldset>
-    <mat-icon>perm_identity</mat-icon>
-    <label for="username"><b>Name:</b></label>
-    <input type="text" name="name" required/><br><br>
-</fieldset>
+        <mat-form-field>
+            <mat-icon matSuffix>perm_identity</mat-icon><input type="text" name="name" required matInput placeholder="Name" formControlName="name">
+        </mat-form-field><br><br>
 
-<fieldset>
-    <mat-icon>how_to_reg</mat-icon>
-    <label for="username"><b>Username:</b></label>
-    <input type="text" username="username" required/><br><br>
-</fieldset>
+        <mat-form-field>
+            <mat-icon matSuffix>how_to_reg</mat-icon><input type="text" name="Username" required matInput placeholder="Enter Username" formControlName="username">
+        </mat-form-field><br><br>
 
-<fieldset>
-    <mat-icon>lock</mat-icon>
-    <label for="password"><b>Enter-Pass:</b></label>
-    <input type="password" name="password" required /><br><br>
-</fieldset>
+        <mat-form-field>
+            <mat-icon matSuffix>lock</mat-icon><input type="Paswword" name="Paswword" required matInput placeholder="Enter Paswword" formControlName="password">
+        </mat-form-field><br><br>
 
-<fieldset>
-    <mat-icon>autorenew</mat-icon>
-    <label for="passwordconfirm"><b>Confirm-Pass:</b></label>        
-    <input type="password" name="password" required /><br><br>
+        <mat-form-field>
+            <mat-icon matSuffix>autorenew</mat-icon><input type="Paswword" name="Paswword" required matInput placeholder="Confirm Paswword" formControlName="password">
+        </mat-form-field><br><br>
 
-</fieldset>
-
-    <button mat-raise-button><mat-icon>how_to_reg</mat-icon><b>Register</b></button><br><br>
-    <a routerLink="/login">Login</a>
+<button mat-raised-button type="submit"><mat-icon matSuffix>how_to_reg</mat-icon>Register</button><br><br>
+        <a routerLink="/login">Login </a>
 
 </form>
 </div>
