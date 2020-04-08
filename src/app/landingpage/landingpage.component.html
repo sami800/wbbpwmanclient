@@ -19,7 +19,7 @@
     </mat-menu>
 </div>
 
-<mat-tab-group [selectedIndex]="currentTab.value">
+<mat-tab-group [selectedIndex]="currentTab.value" (selectedIndexChange)="currentTab.setValue($event)">
     <mat-tab id="prodtitle" label="WBB Password Manager">
         <mat-card class="example-card">
             <mat-card-content class="cardContainer">

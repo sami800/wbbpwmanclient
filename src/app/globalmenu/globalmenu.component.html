@@ -1,10 +1,8 @@
 <mat-drawer-container class="menu-container" autosize>
-
+  <router-outlet></router-outlet>
   <button aria-label="Button to expand menu" class="openCloseIcon" *ngIf="openOrClosed" fxHide fxShow.xs fxShow.sm fxShow.md mat-icon-button class="openClose" (click)="showText = !showText">
     <mat-icon aria-label="Expand menu icon" >arrow_right</mat-icon>
   </button>
-  <router-outlet></router-outlet>
-
   <mat-drawer #drawer [opened]="openOrClosed" class="sidenav" mode="side">
 
     <div ngClass="sidenav-content"
@@ -31,5 +29,4 @@
   </div>
 
   </mat-drawer>
-
 </mat-drawer-container>

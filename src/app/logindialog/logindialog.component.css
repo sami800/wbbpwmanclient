@@ -22,8 +22,8 @@ form {
   justify-content: center space-around;
 }
 
-mat-label {
-  text-align: center;
+input {
+  text-align: justify;
   align-self: center;
   padding:2px;
 }
@@ -33,7 +33,7 @@ mat-icon {
 }
 
 .mat-form-field {
-  text-align: center;
+  text-align: justify;
   max-width: 50vw !important;
   min-width: 260px;
 }

@@ -1,4 +1,4 @@
-import { Injectable, AfterViewChecked } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements AfterViewChecked {
+export class AuthService {
 
   APISERVER = "https://wbbpasswordmanager.appspot.com/";
 
@@ -22,13 +22,6 @@ export class AuthService implements AfterViewChecked {
       this.authSubject.next(true);
      } else {
       this.authSubject.next(false);
-      this.navigateToLink('/');
-      }
-    }
-
-    ngAfterViewChecked(): void {
-      if (this.isAuthenticated) {
-        this.navigateToLink('/');
       }
     }
 
@@ -55,7 +48,6 @@ export class AuthService implements AfterViewChecked {
               localStorage.setItem(item, res[item])
             }
             this.openSnackBar( res.name +' signed in', 'OK');
-            history.pushState(null, null, '/home');
             this.authSubject.next(true);
           } 
         })

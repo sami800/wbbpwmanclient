@@ -13,6 +13,8 @@ export class RegistrationdialogComponent implements OnInit {
 
   registrationForm: FormGroup;
   loggedIn: boolean;
+  visibilityIcon: boolean = false;
+  warningMessage:boolean;
 
   constructor(private router: Router, private auth: AuthService, private snackBar: MatSnackBar) {
     this.auth.isAuthenticated().subscribe(val => {
@@ -26,11 +28,11 @@ export class RegistrationdialogComponent implements OnInit {
     }
 
     this.registrationForm = new FormGroup({
-      email: new FormControl(),
-      password: new FormControl()
+      email: new FormControl(''),
+      password: new FormControl(''),
+      confirmpassword: new FormControl(''),
+      name: new FormControl('')
     });
-    this.registrationForm.controls.email.setValue('');
-    this.registrationForm.controls.password.setValue('');
   }
 
   register(registrationForm){
@@ -52,5 +54,34 @@ export class RegistrationdialogComponent implements OnInit {
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open( message, action, { panelClass: ['blue-snackbar']});
+  }
+
+  passStrength(pw) {
+    let score = 0;
+    
+    if (!pw) {
+      return score;
+    }
+    
+    let letters = new Object();
+      
+    for (let i=0; i<pw.length; i++) {
+        letters[pw[i]] = (letters[pw[i]] || 0) + 1;
+        score += 5.0 / letters[pw[i]];
+    }
+
+    let variations = {
+        digits: /\d/.test(pw),
+        lower: /[a-z]/.test(pw),
+        upper: /[A-Z]/.test(pw),
+        special: /!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/.test(pw),
+    }
+
+    let variationCount = 0;
+    for (var check in variations) {
+        variationCount += (variations[check] == true) ? 1 : 0;
+    }
+    score += (variationCount - 1) * 10;
+    return score;
   }
 }

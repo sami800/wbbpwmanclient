@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewEncapsulation, ɵConsole} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 
 
@@ -23,7 +23,7 @@ export class LandingpageComponent implements OnInit {
   }
   
   ngOnInit() {
-      this.updateCurrentTab(this.route.snapshot.data['index']);
+    this.updateCurrentTab(this.route.snapshot.data['index']);
   }
 
   updateCurrentTab(x: number){
