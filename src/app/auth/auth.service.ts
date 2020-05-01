@@ -3,7 +3,10 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { User } from '../models/usermodel';
+import { NewUser } from '../models/newusermodel';
 import { UserToken } from '../models/usermodeltoken';
+import { UserResult } from '../models/newuserresult';
+
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -25,15 +28,15 @@ export class AuthService {
       }
     }
 
-    register(user: User): Observable<UserToken> {
-      return this.httpClient.post<UserToken>(`${this.APISERVER}auth/register`, user).pipe(
-        tap((res:  UserToken) => {
+    register(user: NewUser): Observable<UserResult> {
+      console.table(user);
+      return this.httpClient.post<UserResult>(`${this.APISERVER}auth/signup`, user).pipe(
+        tap((res:  UserResult) => {
           if (res) {
+            console.table(res);
             for (let item in res) {
               localStorage.setItem(item, res[item])
             }
-            this.openSnackBar( res.name +' Registration complete', 'OK');
-            this.authSubject.next(true);
           } 
         })
       );
@@ -44,10 +47,10 @@ export class AuthService {
       return this.httpClient.post<UserToken>(`${this.APISERVER}auth/login`, user).pipe(
         tap(async (res: UserToken) => {
           if (res) {
+            console.table(res);
             for (let item in res) {
               localStorage.setItem(item, res[item])
             }
-            this.openSnackBar( res.name +' signed in', 'OK');
             this.authSubject.next(true);
           } 
         })
@@ -56,26 +59,25 @@ export class AuthService {
 
     signOut(): Observable<any> {
       let username = localStorage.getItem('name');
-      this.openSnackBar( username +' signed out', 'OK');
-      this.authSubject.next(false);
-      localStorage.clear();
       this.navigateToLink('/login');
-      return this.httpClient.get(`${this.APISERVER}auth/logout`, { observe: 'response', headers:{ 'access_token': JSON.stringify(localStorage.getItem('access_token'))}}).pipe(
+      return this.httpClient.post(`${this.APISERVER}auth/logout`, { observe: 'response', headers:{ 'access_token': JSON.stringify(localStorage.getItem('access_token'))}}).pipe(
         tap(async (res: any) => {
           if (res) {
+            console.table(res);
             for (let item in res) {
               console.log(item);
             }
             this.openSnackBar( username +' signed out', 'OK');
             this.authSubject.next(false)
+            localStorage.clear();
             this.navigateToLink('/login');
-            }
+          }
         })
       );
     }
 
     isAuthenticated() {
-      return  this.authSubject.asObservable();
+      return this.authSubject.asObservable();
     }
 
     navigateToLink(url: string) {

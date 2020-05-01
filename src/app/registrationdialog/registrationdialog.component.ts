@@ -30,7 +30,7 @@ export class RegistrationdialogComponent implements OnInit {
     this.registrationForm = new FormGroup({
       email: new FormControl(''),
       password: new FormControl(''),
-      confirmpassword: new FormControl(''),
+      password_confirmation: new FormControl(''),
       name: new FormControl('')
     });
   }
@@ -43,8 +43,8 @@ export class RegistrationdialogComponent implements OnInit {
   }
   
   onSuccess(res) {
+    this.openSnackBar( JSON.stringify(res), 'OK');
     this.auth.navigateToLink('/');
-    console.log(localStorage.getItem('name') + " Registration Complete");
   }
 
   onErr(err) {

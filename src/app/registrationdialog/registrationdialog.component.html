@@ -15,10 +15,10 @@
             <mat-icon (click)="visibilityIcon = !visibilityIcon" matSuffix>{{!visibilityIcon ? 'visibility' : 'visibility_off' }}</mat-icon> 
         </mat-form-field>
         <mat-form-field>
-            <mat-icon matSuffix>autorenew</mat-icon><input required type="{{!visibilityIcon ? 'password' : 'text' }}" matInput placeholder="Confirm Password" formControlName="confirmpassword">
+            <mat-icon matSuffix>autorenew</mat-icon><input required type="{{!visibilityIcon ? 'password' : 'text' }}" matInput placeholder="Confirm Password" formControlName="password_confirmation">
             <mat-icon (click)="visibilityIcon = !visibilityIcon" matSuffix>{{!visibilityIcon ? 'visibility' : 'visibility_off' }}</mat-icon> 
         </mat-form-field>
-        <mat-label *ngIf="registrationForm.get('password').value != registrationForm.get('confirmpassword').value && registrationForm.get('confirmpassword').value != ''" style="color: crimson;">Passwords do not match!</mat-label>
+        <mat-label *ngIf="registrationForm.get('password').value != registrationForm.get('password_confirmation').value && registrationForm.get('password_confirmation').value != ''" style="color: crimson;">Passwords do not match!</mat-label>
 
         <mat-label> Password Strength: </mat-label><mat-progress-bar mode="determinate" [value]="passStrength(registrationForm.get('password').value)"></mat-progress-bar>
         <br>
