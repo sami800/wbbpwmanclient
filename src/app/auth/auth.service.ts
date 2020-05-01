@@ -59,8 +59,13 @@ export class AuthService {
 
     signOut(): Observable<any> {
       let username = localStorage.getItem('name');
+      this.authSubject.next(false)
+      localStorage.clear();
       this.navigateToLink('/login');
-      return this.httpClient.post(`${this.APISERVER}auth/logout`, { observe: 'response', headers:{ 'access_token': JSON.stringify(localStorage.getItem('access_token'))}}).pipe(
+      this.navigateToLink('/login');
+      return this.httpClient.post(`${this.APISERVER}auth/logout`,
+      { observe: 'response', headers:{ 'access_token': JSON.stringify(localStorage.getItem
+        ('access_token'))}}).pipe(
         tap(async (res: any) => {
           if (res) {
             console.table(res);

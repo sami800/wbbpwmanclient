@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DataupdateService } from '../dataservices/dataupdate.service';
+import { LocalDBserviceService } from '../dataservices/local-dbservice.service';
 
 @Component({
   selector: 'app-checkup',
@@ -21,7 +21,7 @@ export class CheckupComponent implements OnInit {
   visibilityIcon = true;
   searchResults: any;
 
-  constructor(private router: Router, private auth: AuthService, private snackBar: MatSnackBar, private db: DataupdateService) {
+  constructor(private router: Router, private auth: AuthService, private snackBar: MatSnackBar, private dbservice: LocalDBserviceService) {
     this.auth.isAuthenticated().subscribe(val => {
       this.loggedIn = val.valueOf();
       })
@@ -31,7 +31,7 @@ export class CheckupComponent implements OnInit {
     if (!this.loggedIn) {
       this.router.navigate(['/login'])
     }
-    
+
     this.checkupForm = new FormGroup({
       password: new FormControl()
     });
@@ -39,14 +39,18 @@ export class CheckupComponent implements OnInit {
   }
 
   checkup(checkupForm){
-    this.db.syncData(checkupForm.value).subscribe(
+    /*
+      this.db.syncData(checkupForm.value).subscribe(
       (res) => this.onSuccess(res),
       (error) => this.onErr(error)
-    );
+    ); */
+
+    console.table(this.dbservice.getAllPassword)
+    console.log(this.dbservice.getPassword(checkupForm.get('password').value))
   }
-  
+
   onSuccess(res) {
-    console.log(localStorage.getItem('name') + " Logged in!");
+    console.log(localStorage.getItem('name') + ' Logged in!');
   }
 
   onErr(err) {

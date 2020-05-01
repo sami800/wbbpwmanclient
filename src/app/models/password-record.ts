@@ -1,4 +1,4 @@
-export interface IPasswordRecord {
+export interface PasswordRecord {
     id?: number;
     domain: string;
     password: string;
