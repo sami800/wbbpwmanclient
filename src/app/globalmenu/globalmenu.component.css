@@ -28,7 +28,6 @@
   display: flex;
   flex-flow: column;
   flex-grow: 1;
-  height: 100vh;
   align-items: flex-start;
   justify-content: flex-start space-around;
 }
@@ -36,8 +35,8 @@
 .sidenav-content {
   display: flex;
   flex-flow: column;
-  height: 95vh;
   flex-grow: 1;
+  height: 95vh;
   align-items: center;
   justify-content: center space-around;
 }
@@ -45,7 +44,8 @@
 .sidenav-content-smaller {
   display: flex;
   flex-flow: column;
-  height: 90vh;
+  flex-grow: 1;
+  height: 89vh;
   align-items: center;
   justify-content: flex-start;
 }

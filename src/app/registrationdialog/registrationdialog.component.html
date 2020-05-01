@@ -1,38 +1,30 @@
-<header>
 <h1>Registration Form</h1>
-</header>
 
-<div fxLayout="column">
+<div class="registrationformdiv" fxLayout="column">
     <form [formGroup]="registrationForm" (submit)="register(registrationForm)">
+        <mat-form-field>
+            <mat-icon matSuffix>perm_identity</mat-icon><input type="text" name="name" required matInput placeholder="Name" formControlName="name">
+        </mat-form-field>
 
-<fieldset>
-    <mat-icon>perm_identity</mat-icon>
-    <label for="username"><b>Name:</b></label>
-    <input type="text" name="name"/><br><br>
-</fieldset>
+        <mat-form-field>
+            <mat-icon matSuffix>how_to_reg</mat-icon><input type="text" name="Email" required matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
 
-<fieldset>
-    <mat-icon>how_to_reg</mat-icon>
-    <label for="username"><b>Username:</b></label>
-    <input type="text" username="username"/><br><br>
-</fieldset>
+        <mat-form-field>
+            <mat-icon matSuffix>lock</mat-icon><input required type="{{!visibilityIcon ? 'password' : 'text' }}" name="paswword" matInput placeholder="Enter Password" formControlName="password">
+            <mat-icon (click)="visibilityIcon = !visibilityIcon" matSuffix>{{!visibilityIcon ? 'visibility' : 'visibility_off' }}</mat-icon> 
+        </mat-form-field>
+        <mat-form-field>
+            <mat-icon matSuffix>autorenew</mat-icon><input required type="{{!visibilityIcon ? 'password' : 'text' }}" matInput placeholder="Confirm Password" formControlName="confirmpassword">
+            <mat-icon (click)="visibilityIcon = !visibilityIcon" matSuffix>{{!visibilityIcon ? 'visibility' : 'visibility_off' }}</mat-icon> 
+        </mat-form-field>
+        <mat-label *ngIf="registrationForm.get('password').value != registrationForm.get('confirmpassword').value && registrationForm.get('confirmpassword').value != ''" style="color: crimson;">Passwords do not match!</mat-label>
 
-<fieldset>
-    <mat-icon>lock</mat-icon>
-    <label for="password"><b>Enter-Pass:</b></label>
-    <input type="password" name="password" /><br><br>
-</fieldset>
-
-<fieldset>
-    <mat-icon>autorenew</mat-icon>
-    <label for="passwordconfirm"><b>Confirm-Pass:</b></label>        
-    <input type="password" name="password" /><br><br>
-
-</fieldset>
-
-    <button mat-raise-button><mat-icon>how_to_reg</mat-icon><b>Register</b></button><br><br>
-    <a routerLink="/login">Login</a>
-
-</form>
+        <mat-label> Password Strength: </mat-label><mat-progress-bar mode="determinate" [value]="passStrength(registrationForm.get('password').value)"></mat-progress-bar>
+        <br>
+        <button mat-raised-button type="submit"><mat-icon matSuffix>how_to_reg</mat-icon>Register</button>
+        <br>
+        <a routerLink="/login">Login </a>
+    </form>
 </div>
 

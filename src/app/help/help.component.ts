@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-help',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HelpComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  loggedIn: boolean;
+  
+  constructor(private router: Router, private auth: AuthService) {
+    this.auth.isAuthenticated().subscribe(val => {
+      this.loggedIn = val.valueOf();
+      })
   }
 
+  ngOnInit() { 
+    if (!this.loggedIn) {
+      this.router.navigate(['/login'])
+    }
+  }
 }

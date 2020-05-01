@@ -3,16 +3,19 @@
 
 <div class="loginform">
 <form [formGroup]="loginForm" (submit)="login(loginForm)">
-<p>
+
     <mat-form-field>
-        <mat-icon matSuffix>perm_identity</mat-icon><input type="text" matInput placeholder="Email" formControlName="email">
+        <mat-icon matSuffix>perm_identity</mat-icon><input required type="text" matInput placeholder="Email" formControlName="email">
     </mat-form-field>
-</p>
-<p>
+
+
     <mat-form-field>
-        <mat-icon matSuffix>vpn_key</mat-icon><input type="password" matInput placeholder="Password" formControlName="password">
+        <mat-icon matSuffix>vpn_key</mat-icon><input required type="{{!visibilityIcon ? 'password' : 'text' }}" matInput placeholder="Password" formControlName="password">
+        <mat-icon (click)="visibilityIcon = !visibilityIcon" matSuffix>{{!visibilityIcon ? 'visibility' : 'visibility_off' }}</mat-icon>                  
     </mat-form-field>
-</p>
-<button mat-raised-button type="submit"><mat-icon matSuffix>lock_open</mat-icon>Login</button>
+
+<button mat-raised-button type="submit"><mat-icon matSuffix>lock_open</mat-icon>Login</button><br>
+<a routerLink="/register">Register </a>
+
 </form>
 </div>

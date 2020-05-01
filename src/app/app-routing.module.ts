@@ -11,16 +11,16 @@ import { AuthGuard } from './auth/authcheck.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full'},
-  { path: 'welcome', component: LandingpageComponent, canActivate: [AuthGuard], data: {index: 0}},
-  { path: 'login', component: LandingpageComponent, canActivate: [AuthGuard], data: {index: 1}},
-  { path: 'home', component: UserhomeComponent, canActivate: [AuthGuard] },
+  { path: 'welcome', component: LandingpageComponent, data: {index: 0}},
+  { path: 'login', component: LandingpageComponent, data: {index: 1}},
+  { path: 'home', component: UserhomeComponent, canActivate: [AuthGuard]},
   { path: 'passwordlist', component: PasswordlistComponent, canActivate: [AuthGuard] },
-  { path: 'newpassword', component: NewpasswordComponent, canActivate: [AuthGuard] },
+  { path: 'newpassword', component: NewpasswordComponent, canActivate: [AuthGuard], data: {index: 0}},
   { path: 'checkup', component: CheckupComponent, canActivate: [AuthGuard] },
   { path: 'help', component: HelpComponent, canActivate: [AuthGuard] },
-  { path: 'usersettings', component: UsersettingsComponent, canActivate: [AuthGuard], data : { index:'1'}},
-  { path: 'register', component: LandingpageComponent, canActivate: [AuthGuard], data: {index: 2}},
-  { path: 'registration', component: LandingpageComponent, canActivate: [AuthGuard], data: {index: 2}}
+  { path: 'usersettings', component: UsersettingsComponent, canActivate: [AuthGuard], data: { index: 0}},
+  { path: 'register', component: LandingpageComponent, data: {index: 2}},
+  { path: 'registration', component: LandingpageComponent, data: {index: 2}}
 ]
 
 @NgModule({

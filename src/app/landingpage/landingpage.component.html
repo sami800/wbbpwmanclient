@@ -19,18 +19,18 @@
     </mat-menu>
 </div>
 
-<mat-tab-group [selectedIndex]="currentTab.value">
+<mat-tab-group [selectedIndex]="currentTab.value" (selectedIndexChange)="currentTab.setValue($event)">
     <mat-tab id="prodtitle" label="WBB Password Manager">
         <mat-card class="example-card">
             <mat-card-content class="cardContainer">
                 <div class="landingLogo" >
                     <img src="assets/icons/icon-128x128.png"> 
                 </div>
-                    <h1>Welcome to WBB Password Manager</h1>
-                    <h3>A place to keep all your passwords</h3>
-                <p>
-                    Fill this area with text about our product.
-                </p>
+                    <mat-label>
+                        <h1>Thank you for choosing WBB Password manager</h1>
+                        <h2>The easiest way to keep all your pasSwords safe and secure where no bug shall pass!</h2>
+                        <h3>"We will chase all your bugs away" - The WBB team ;)</h3>
+                    </mat-label>
             </mat-card-content>
           </mat-card>
 
