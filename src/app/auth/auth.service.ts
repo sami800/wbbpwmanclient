@@ -16,7 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AuthService {
 
-  APISERVER = "https://wbbpasswordmanager.appspot.com/";
+  APISERVER = 'https://wbbpasswordmanager.appspot.com/';
 
   authSubject  =  new  BehaviorSubject(false);
 

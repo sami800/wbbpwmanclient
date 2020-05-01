@@ -1,6 +1,6 @@
 import { environment } from '../environments/environment';
 
-//angular
+// Angular
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 
 
-//material
+// Material
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatRippleModule } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
@@ -26,7 +26,7 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/mater
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
-//generated components
+// Generated components
 import { CheckupComponent } from './checkup/checkup.component';
 import { NewpasswordComponent } from './newpassword/newpassword.component';
 import { HelpComponent } from './help/help.component';
@@ -41,10 +41,10 @@ import { UserhomeComponent } from './userhome/userhome.component';
 import { PasswordlistComponent } from './passwordlist/passwordlist.component';
 import { NewSnackBarMessage } from './snack-bar-message/snack-bar-message.component';
 
-//generated services
+// Generated services
 import { AuthService } from './auth/auth.service'; // Checks details with server
-import { LocalDBserviceService } from './dataservices/local-dbservice.service'; //Used for Local data manipulation
-import { DataupdateService } from './dataservices/dataupdate.service'; //Syncs from server
+import { LocalDBserviceService } from './dataservices/local-dbservice.service'; // Used for Local data manipulation
+import { DataupdateService } from './dataservices/dataupdate.service'; // Syncs from server
 
 
 @NgModule({
@@ -85,7 +85,8 @@ import { DataupdateService } from './dataservices/dataupdate.service'; //Syncs f
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   entryComponents: [ NewSnackBarMessage ],
-  providers: [ AuthService, LocalDBserviceService, DataupdateService, {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}} ],
+  providers: [ AuthService, LocalDBserviceService, DataupdateService,
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}} ],
   bootstrap: [ AppComponent ],
   exports: [ MatSidenavModule, FlexLayoutModule, HttpClientModule, MatFormFieldModule, MatSnackBarModule, MatGridListModule ]
 })

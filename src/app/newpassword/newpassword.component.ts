@@ -21,10 +21,13 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
   visibilityIcon = false;
   correctIcon = true;
 
-  constructor(private router: Router, private auth: AuthService, private snackBar: MatSnackBar, private db: DataupdateService, public media: MediaObserver) {
+  constructor(private router: Router, private auth: AuthService,
+    private snackBar: MatSnackBar, private db: DataupdateService,
+    public media: MediaObserver) {
+
     this.auth.isAuthenticated().subscribe(val => {
       this.loggedIn = val.valueOf();
-      })
+    })
   }
   ngAfterViewChecked(): void {
     if (this.media.isActive('xs') || this.media.isActive('sm') || this.media.isActive('md') )
@@ -75,7 +78,7 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
   }
 
   onSuccess(res) {
-    console.log(localStorage.getItem('name') + " Logged in!");
+    console.log(localStorage.getItem('name') + ' Logged in!');
   }
 
   onErr(err) {
@@ -108,13 +111,13 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
     if (!pw)
         return pwstrength;
 
-    let letters = new Object();
-    for (let i=0; i<pw.length; i++) {
+    const letters = new Object();
+    for (let i=0; i <= pw.length; i++) {
         letters[pw[i]] = (letters[pw[i]] || 0) + 1;
         pwstrength += 5.0 / letters[pw[i]];
     }
 
-    let variations = {
+    const variations = {
         digits: /\d/.test(pw),
         lower: /[a-z]/.test(pw),
         upper: /[A-Z]/.test(pw),
@@ -122,8 +125,8 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
     }
 
     let variationCount = 0;
-    for (var check in variations) {
-        variationCount += (variations[check] == true) ? 1 : 0;
+    for (const varient in variations) {
+        variationCount += (variations[varient] == true) ? 1 : 0;
     }
     pwstrength += (variationCount - 1) * 10;
     return pwstrength;
