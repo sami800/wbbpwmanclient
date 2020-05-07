@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataupdateService } from '../dataservices/dataupdate.service';
+import { LocalDBserviceService } from '../dataservices/local-dbservice.service';
 
 @Component({
   selector: 'app-newpassword',
@@ -23,7 +24,7 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
 
   constructor(private router: Router, private auth: AuthService,
     private snackBar: MatSnackBar, private db: DataupdateService,
-    public media: MediaObserver) {
+    public media: MediaObserver, private localdb: LocalDBserviceService) {
 
     this.auth.isAuthenticated().subscribe(val => {
       this.loggedIn = val.valueOf();
@@ -41,12 +42,16 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
 
     this.generatePWForm = new FormGroup({
       domain: new FormControl(''),
-      generatedpw: new FormControl('')
+      pw: new FormControl(''),
+      newid: new FormControl(''),
+      updatedate: new FormControl('')
     });
 
     this.savePWForm = new FormGroup({
       domain: new FormControl(''),
-      pwtosave: new FormControl('')
+      pw: new FormControl(''),
+      newid: new FormControl(''),
+      updatedate: new FormControl('')
     });
 
     this.generatePWForm.controls.domain.setValue('');
@@ -58,7 +63,9 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
   }
 
   submitGeneratedPW(generatePWForm){
-    if (generatePWForm.controls.domain != '' && generatePWForm.controls.password != '')
+    if (generatePWForm.controls.domain !== '' && generatePWForm.controls.password !== '')
+      this.localdb.addPassword(generatePWForm.value)
+      console.table(generatePWForm.value)
       this.db.syncData(generatePWForm.value).subscribe(
         (res) => this.onSuccess(res),
         (error) => this.onErr(error)
@@ -66,7 +73,7 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
   }
 
   submitNewPW(savePWForm){
-    if (savePWForm.controls.domain != '' && savePWForm.controls.password != '')
+    if (savePWForm.controls.domain !== '' && savePWForm.controls.password !== '')
       this.db.syncData(savePWForm.value).subscribe(
         (res) => this.onSuccess(res),
         (error) => this.onErr(error)
@@ -91,12 +98,12 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
   }
 
   generatePW() {
-    if (this.generatePWForm.controls.domain.value != '' && this.validateDomain(this.generatePWForm.controls.domain.value)) 
-        this.generatePWForm.patchValue({generatedpw: 'helloIsItMeYoureLookingFor'});
+    if (this.generatePWForm.controls.domain.value !== '' && this.validateDomain(this.generatePWForm.controls.domain.value))
+        this.generatePWForm.patchValue({pw: 'helloIsItMeYoureLookingFor'});
   }
 
   resetForm() {
-    this.generatePWForm.patchValue({generatedpw: '', domain: ''});
+    this.generatePWForm.patchValue({pw: '', domain: ''});
   }
 
   validateDomain(domain: string) {
