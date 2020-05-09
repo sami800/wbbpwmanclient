@@ -17,7 +17,7 @@ export class LocalDBserviceService {
 
   constructor() {
 
-    const DBOpenRequest = indexedDB.open('passwordlist', 1);
+    const DBOpenRequest = indexedDB.open('WBBPasswordManager', 1);
 
     DBOpenRequest.onerror = (event) => {
       console.warn(event);
@@ -31,9 +31,9 @@ export class LocalDBserviceService {
     DBOpenRequest.onupgradeneeded = (event) => {
       this.db = DBOpenRequest.result;
       console.log(event)
-      this.objectStore = this.db.createObjectStore('passwordlist', { keyPath: 'domain' });
+      this.objectStore = this.db.createObjectStore('passwordlist', { keyPath: 'id', autoIncrement:true });
 
-      this.objectStore.createIndex('id', 'id', { unique: true });
+      this.objectStore.createIndex('id', 'id', { unique: true});
       this.objectStore.createIndex('domain', 'domain', { unique: false });
       this.objectStore.createIndex('password', 'password', { unique: false });
       this.objectStore.createIndex('updatetime', 'updatetime', { unique: false });
@@ -46,17 +46,17 @@ export class LocalDBserviceService {
     return tx.objectStore(storename);
   }
 
+  completeUpdate() {
+    const objectStore = this.getObjectStore('passwordlist', 'readwrite')
+    objectStore.close();
+  }
+
   addPassword(passwordtoadd: PasswordRecord) {
 
     const objectStoreRequest = this.getObjectStore('passwordlist', 'readwrite')
 
-    objectStoreRequest.put({domain: passwordtoadd.domain})
-    console.log(passwordtoadd.domain + " " + passwordtoadd.newid + " " +  passwordtoadd.pw + " " + passwordtoadd.updatedate)
-    objectStoreRequest.put({id: this.objectStore.id++})
-    objectStoreRequest.put({password: passwordtoadd.pw})
-    objectStoreRequest.put({updatetime: passwordtoadd.updatedate})
-
-    console.table(objectStoreRequest)
+    objectStoreRequest.put({domain:passwordtoadd.domain,password: passwordtoadd.pw,
+      updatetime: passwordtoadd.updatedate})
 
     objectStoreRequest.onsuccess = (event) => {
       console.log(event)
@@ -97,10 +97,15 @@ export class LocalDBserviceService {
   }
 
   checkPassword(search: string) {
-    this.objectStore.where({domain: search}).first(result => {
-      console.log(JSON.stringify(result));
-    }).catch((error) => {
-        console.log(error);
-    });
+    const objectStoreRequest = this.getObjectStore('passwordlist', 'readonly')
+
+    const request = objectStoreRequest.openCursor([search]);
+    request.onsuccess = (event) => {
+      const cursor = event.target.result;
+      if (cursor) {
+          console.table(cursor.value)
+        }
+          cursor.clear();
+    }
   }
 }

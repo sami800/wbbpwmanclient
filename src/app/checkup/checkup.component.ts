@@ -45,7 +45,7 @@ export class CheckupComponent implements OnInit {
       (error) => this.onErr(error)
     ); */
 
-    console.log(this.dbservice.checkRecordExpiry(checkupForm.get('password').value))
+    console.log(this.dbservice.checkPassword(checkupForm.get('password').value))
   }
 
   onSuccess(res) {

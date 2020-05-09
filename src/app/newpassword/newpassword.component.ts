@@ -21,6 +21,7 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
   savePWForm: FormGroup;
   visibilityIcon = false;
   correctIcon = true;
+  todaysDate: string;
 
   constructor(private router: Router, private auth: AuthService,
     private snackBar: MatSnackBar, private db: DataupdateService,
@@ -29,6 +30,10 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
     this.auth.isAuthenticated().subscribe(val => {
       this.loggedIn = val.valueOf();
     })
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth();
+    const day = new Date().getDate();
+    this.todaysDate = year+'-'+month+'-'+day;
   }
   ngAfterViewChecked(): void {
     if (this.media.isActive('xs') || this.media.isActive('sm') || this.media.isActive('md') )
@@ -44,7 +49,7 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
       domain: new FormControl(''),
       pw: new FormControl(''),
       newid: new FormControl(''),
-      updatedate: new FormControl('')
+      updatedate: new FormControl(this.todaysDate)
     });
 
     this.savePWForm = new FormGroup({
