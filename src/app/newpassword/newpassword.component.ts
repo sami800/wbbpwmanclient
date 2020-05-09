@@ -56,7 +56,7 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
       domain: new FormControl(''),
       pw: new FormControl(''),
       newid: new FormControl(''),
-      updatedate: new FormControl('')
+      updatedate: new FormControl(this.todaysDate)
     });
 
     this.generatePWForm.controls.domain.setValue('');
@@ -70,7 +70,6 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
   submitGeneratedPW(generatePWForm){
     if (generatePWForm.controls.domain !== '' && generatePWForm.controls.password !== '')
       this.localdb.addPassword(generatePWForm.value)
-      console.table(generatePWForm.value)
       this.db.syncData(generatePWForm.value).subscribe(
         (res) => this.onSuccess(res),
         (error) => this.onErr(error)
@@ -79,6 +78,7 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
 
   submitNewPW(savePWForm){
     if (savePWForm.controls.domain !== '' && savePWForm.controls.password !== '')
+      this.localdb.addPassword(savePWForm.value)
       this.db.syncData(savePWForm.value).subscribe(
         (res) => this.onSuccess(res),
         (error) => this.onErr(error)
@@ -109,6 +109,7 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
 
   resetForm() {
     this.generatePWForm.patchValue({pw: '', domain: ''});
+    this.savePWForm.patchValue({pw: '', domain: ''});
   }
 
   validateDomain(domain: string) {

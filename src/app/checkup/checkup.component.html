@@ -13,15 +13,21 @@
 
 <mat-card *ngIf="anyResults">
     <mat-card-content>
-        <mat-grid-list  *ngIf="anyResults" cols="2">
-            <mat-grid-tile
-                *ngFor="let result of searchResults"
-                [colspan]="result.cols"
-                [rowspan]="result.rows"
-                [style.background]="result.color">
-                {{result.text}}
-            </mat-grid-tile>
-            </mat-grid-list>
+    <table>
+        <thead>
+            <tr>
+              <th>ID</th>
+              <th>Domain</th>
+            </tr>
+            </thead>
+           
+            <tbody>
+            <tr class="row" *ngFor="let item of searchResults[0]">
+                <td>{{item.id}}</td>
+                <td>{{item.domain}}</td>
+            </tr>
+            </tbody>
+        </table>
     </mat-card-content>
 </mat-card>
 </div>

@@ -46,9 +46,11 @@ export class LocalDBserviceService {
     return tx.objectStore(storename);
   }
 
-  completeUpdate() {
-    const objectStore = this.getObjectStore('passwordlist', 'readwrite')
-    objectStore.close();
+  getFromIndex(indexName: string, storename: string, mode: string) {
+    const tx = this.db.transaction(storename, mode)
+    const store = tx.objectStore(storename)
+    const index = store.index(indexName)
+    return index;
   }
 
   addPassword(passwordtoadd: PasswordRecord) {
@@ -88,24 +90,52 @@ export class LocalDBserviceService {
     });
   }
 
-  getAllPasswords() {
-    this.objectStore.toArray(result => {
-      console.log(JSON.stringify(result));
-    }).catch((error) => {
-        console.log(error);
-    });
+  getPasswordByID(search: string): string {
+    
+    let passwordfromid = ''
+
+    let index = this.getFromIndex('id', 'passwordlist', 'readwrite');
+    
+    let request = index.get(IDBKeyRange.only(search));
+    request.onsuccess = () => {
+      console.log(request.result.password)
+      passwordfromid = request.result.password
+    }
+    return passwordfromid
   }
 
-  checkPassword(search: string) {
-    const objectStoreRequest = this.getObjectStore('passwordlist', 'readonly')
 
-    const request = objectStoreRequest.openCursor([search]);
-    request.onsuccess = (event) => {
-      const cursor = event.target.result;
+  getAllPasswords(): string[] {
+    
+    let passwordlist = []
+
+    let index = this.getFromIndex('password', 'passwordlist', 'readwrite');
+    
+    let request = index.openCursor();
+    request.onsuccess = () => {
+      var cursor = request.result;
       if (cursor) {
-          console.table(cursor.value)
-        }
-          cursor.clear();
+        passwordlist.push({id: cursor.value.id, domain: cursor.value.domain, password: cursor.value.password, updatetime: cursor.value.updatetime});
+        cursor.continue();
+      }
     }
+    return passwordlist
+  }
+
+  checkPassword(search: string): string[] {
+
+    let passwordlist = []
+
+    let index = this.getFromIndex('password', 'passwordlist', 'readwrite');
+    
+    let request = index.openCursor(IDBKeyRange.only(search));
+    request.onsuccess = () => {
+      var cursor = request.result;
+      if (cursor) {
+        passwordlist.push({id: cursor.value.id, domain: cursor.value.domain, password: cursor.value.password, updatetime: cursor.value.updatetime});
+        cursor.continue();
+      }
+    }
+    return passwordlist
   }
 }

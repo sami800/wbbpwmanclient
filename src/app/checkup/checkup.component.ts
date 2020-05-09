@@ -18,7 +18,7 @@ export class CheckupComponent implements OnInit {
 
   anyResults: true;
 
-  visibilityIcon = true;
+  visibilityIcon = false;
   searchResults: any;
 
   constructor(private router: Router, private auth: AuthService, private snackBar: MatSnackBar, private dbservice: LocalDBserviceService) {
@@ -39,13 +39,9 @@ export class CheckupComponent implements OnInit {
   }
 
   checkup(checkupForm){
-    /*
-      this.db.syncData(checkupForm.value).subscribe(
-      (res) => this.onSuccess(res),
-      (error) => this.onErr(error)
-    ); */
-
-    console.log(this.dbservice.checkPassword(checkupForm.get('password').value))
+    this.anyResults = true
+    this.searchResults = [this.dbservice.checkPassword(checkupForm.get('password').value)]
+    console.table(this.searchResults)
   }
 
   onSuccess(res) {

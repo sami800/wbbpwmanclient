@@ -14,7 +14,23 @@ form {
     align-content: center;
     justify-content: center space-around;
     margin: 30%;
-}   
+}
+
+.item {
+    padding:3px;
+    margin:8px;
+}
+
+.row{
+    padding:2px;
+    border-top: 0.5px;
+    border-left:0px;
+    border-right:0px;
+    border-bottom: 0.5px;
+    border-style: solid;
+}
+
+
 
 mat-label {
     text-align: center;
@@ -25,17 +41,6 @@ mat-label {
 mat-icon {
     padding-left:8px;
     padding-right:8px;
-}
-
-.pageContainer {
-    display: flex;
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-flow: column;
-    align-items: center;
-    align-content: center;
-    justify-content: center space-around;
-    margin: 14%;
 }
 
 .mat-card {

@@ -8,7 +8,5 @@ import { LocalDBserviceService } from './dataservices/local-dbservice.service'
 })
 export class AppComponent {
   title = 'wbbpwmanclient';
-  constructor(private dbservice: LocalDBserviceService) {
-    console.log(this.dbservice.objectStore);
-  }
+  constructor() {}
 }
