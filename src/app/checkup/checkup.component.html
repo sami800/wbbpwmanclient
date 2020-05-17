@@ -1,33 +1,33 @@
 <div class="pageContainer">
     <h1>Checkup</h1>
         <div class="checkupForm">
-        <form [formGroup]="checkupForm" (submit)="checkup(checkupForm)">
+            <form [formGroup]="checkupForm" (submit)="checkup(checkupForm)">
                 <mat-form-field>
                     <mat-icon matSuffix>vpn_key</mat-icon><input type="{{!visibilityIcon ? 'password' : 'text' }}" matInput placeholder="Password" formControlName="password">
                     <mat-icon (click)="visibilityIcon = !visibilityIcon" matSuffix>{{!visibilityIcon ? 'visibility' : 'visibility_off' }}</mat-icon>                  
                 </mat-form-field>
-
-            <button mat-raised-button type="submit"><mat-icon matSuffix>check</mat-icon>Check It</button><br><br>
-        </form>
+                <button mat-raised-button type="submit"><mat-icon matSuffix>check</mat-icon>Check It</button><br><br>
+            </form>
         </div>
-
-<mat-card *ngIf="anyResults">
-    <mat-card-content>
-    <table>
-        <thead>
-            <tr>
-              <th>ID</th>
-              <th>Domain</th>
-            </tr>
-            </thead>
-           
-            <tbody *ngIf="anyResults">
-            <tr class="row" *ngFor="let item of searchResults[0]">
-                <td>{{item.id}}</td>
-                <td>{{item.domain}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </mat-card-content>
-</mat-card>
+    <div *ngIf="anyResults">      
+        <mat-card class="row" *ngFor="let item of searchResults">
+            <mat-card-content>
+            <table>
+                <thead>
+                    <tr>
+                    <th>ID</th>
+                    <th>Domain</th>
+                    </tr>
+                    </thead>
+                
+                    <tbody *ngIf="anyResults">
+                    <tr >
+                        <td>{{item.id}}</td>
+                        <td>{{item.domain}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>

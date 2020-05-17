@@ -40,12 +40,7 @@ export class CheckupComponent implements OnInit {
 
   checkup(checkupForm){
     this.anyResults = true
-    this.searchResults = [checkupForm.get('password').value]
-    console.table(this.searchResults)
-  }
-
-  onSuccess(res) {
-    console.log(localStorage.getItem('name') + ' Logged in!');
+    this.searchResults = this.dbservice.checkPassword(checkupForm.get('password').value)
   }
 
   onErr(err) {

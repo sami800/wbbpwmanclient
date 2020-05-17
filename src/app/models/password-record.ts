@@ -1,6 +1,6 @@
 export interface PasswordRecord {
-    newid?: number;
-    domain: string;
-    pw: string;
+    id?: number;
+    site: string;
+    password: string;
     updatedate: string;
 }

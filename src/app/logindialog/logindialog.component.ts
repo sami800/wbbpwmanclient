@@ -47,7 +47,6 @@ export class LogindialogComponent implements OnInit {
   
   onSuccess(res) {
     this.auth.navigateToLink('/home');
-    console.log(localStorage.getItem('name') + " Logged in!");
   }
 
   onErr(err) {

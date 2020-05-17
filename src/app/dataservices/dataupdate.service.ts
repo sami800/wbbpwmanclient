@@ -20,37 +20,29 @@ export class DataupdateService {
   constructor(private httpClient: HttpClient, private router: Router, private snackBar: MatSnackBar) {}
 
   addPassword(password: AddPasswordModel): Observable<AddPasswordReturn> {
-    console.log(password);
     return this.httpClient.post<AddPasswordReturn>(`${this.APISERVER}user/addpassword`, password).pipe(
       tap(async (res: AddPasswordReturn) => {
         if (res) {
-          console.table(res);
-          for (let item in res) {
-            localStorage.setItem(item, res[item])
-          }
         } 
       })
     );
   }
 
-/*   getPassword(password: string): Observable<any> {
+  getPasswords(password: string): Observable<any> {
     return this.httpClient.post<any>(`${this.APISERVER}user/getpasswords`, password).pipe(
       tap((res:  any) => {
         if (res) {
           for (let item in res) {
-            localStorage.setItem(item, res[item])
           }
         }
       })
     );
-  } */
+  }
 
   updatePassword(password: UpdatePasswordModel): Observable<UpdatePasswordReturn> {
-    console.log(password);
     return this.httpClient.post<UpdatePasswordReturn>(`${this.APISERVER}user/updatepassword`, password).pipe(
       tap(async (res: UpdatePasswordReturn) => {
         if (res) {
-          console.table(res);
           for (let item in res) {
             localStorage.setItem(item, res[item])
           }

@@ -26,6 +26,12 @@ export class NewpasswordComponent implements OnInit {
   constructor(private router: Router, private auth: AuthService,
     private snackBar: MatSnackBar, private db: DataupdateService,
     public media: MediaObserver, private localdb: LocalDBserviceService) {
+    
+    if (this.media.isActive('xs') || this.media.isActive('sm') || this.media.isActive('md') ){
+    this.tabPosition = 'below';
+    } else {
+    this.tabPosition = 'above';
+    }
 
     this.auth.isAuthenticated().subscribe(val => {
       this.loggedIn = val.valueOf();
@@ -35,31 +41,29 @@ export class NewpasswordComponent implements OnInit {
     const day = new Date().getDate();
     this.todaysDate = year+'-'+month+'-'+day;
 
-    if (this.media.isActive('xs') || this.media.isActive('sm') || this.media.isActive('md') )
-    this.tabPosition = 'below';
-    else
-    this.tabPosition = 'above';
   }
 
   ngOnInit(): void {
     this.currentTab.setValue(0);
 
     this.generatePWForm = new FormGroup({
-      domain: new FormControl(''),
-      pw: new FormControl(''),
+      uid: new FormControl(localStorage.getItem('id')),
+      site: new FormControl(''),
+      password: new FormControl(''),
       newid: new FormControl(''),
       updatedate: new FormControl(this.todaysDate)
     });
 
     this.savePWForm = new FormGroup({
-      domain: new FormControl(''),
-      pw: new FormControl(''),
-      newid: new FormControl(''),
+      uid: new FormControl(localStorage.getItem('id')),
+      site: new FormControl(''),
+      password: new FormControl(''),
+      id: new FormControl(''),
       updatedate: new FormControl(this.todaysDate)
     });
 
-    this.generatePWForm.controls.domain.setValue('');
-    this.savePWForm.controls.domain.setValue('');
+    this.generatePWForm.controls.site.setValue('');
+    this.savePWForm.controls.site.setValue('');
 
     if (!this.loggedIn)
     this.router.navigate(['/login'])
@@ -67,7 +71,7 @@ export class NewpasswordComponent implements OnInit {
   }
 
   submitGeneratedPW(generatePWForm){
-    if (generatePWForm.controls.domain !== '' && generatePWForm.controls.password !== '')
+    if (generatePWForm.controls.site !== '' && generatePWForm.controls.password !== '')
       this.localdb.addPassword(generatePWForm.value)
       this.db.addPassword(generatePWForm.value).subscribe(
         (res) => this.onSuccess(res),
@@ -76,7 +80,7 @@ export class NewpasswordComponent implements OnInit {
   }
 
   submitNewPW(savePWForm){
-    if (savePWForm.controls.domain !== '' && savePWForm.controls.password !== '')
+    if (savePWForm.controls.site !== '' && savePWForm.controls.password !== '')
       this.localdb.addPassword(savePWForm.value)
       this.db.addPassword(savePWForm.value).subscribe(
         (res) => this.onSuccess(res),
@@ -89,7 +93,7 @@ export class NewpasswordComponent implements OnInit {
   }
 
   onSuccess(res) {
-    console.log(localStorage.getItem('name') + ' Logged in!');
+    this.openSnackBar('Password Add', 'OK');
   }
 
   onErr(err) {
@@ -102,17 +106,17 @@ export class NewpasswordComponent implements OnInit {
   }
 
   generatePW() {
-    if (this.generatePWForm.controls.domain.value !== '' && this.validateDomain(this.generatePWForm.controls.domain.value))
-        this.generatePWForm.patchValue({pw: 'helloIsItMeYoureLookingFor'});
+    if (this.generatePWForm.controls.site.value !== '' && this.validateDomain(this.generatePWForm.controls.site.value))
+        this.generatePWForm.patchValue({password: 'helloIsItMeYoureLookingFor'});
   }
 
   resetForm() {
-    this.generatePWForm.patchValue({pw: '', domain: ''});
-    this.savePWForm.patchValue({pw: '', domain: ''});
+    this.generatePWForm.patchValue({password: '', site: ''});
+    this.savePWForm.patchValue({password: '', site: ''});
   }
 
-  validateDomain(domain: string) {
-    if (domain.length >= 6 && domain.includes('.'))
+  validateDomain(site: string) {
+    if (site.length >= 6 && site.includes('.'))
       return true;
     else 
       return false;

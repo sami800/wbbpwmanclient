@@ -6,44 +6,33 @@ import { PasswordRecord } from '../models/password-record';
 })
 export class LocalDBserviceService {
 
-  DB_VERSION: number;
-  DB_NAME: string;
+  constructor() { 
+     this.openIndexedDB()
+  }
 
-  db: any;
+  openIndexedDB = () => {
 
-  objectStore: any;
+    let openDB = indexedDB.open('WBBPasswordManager', 2)
 
-  constructor() {
-    console.table(this.openIndexedDB())
-  };
-
-  openIndexedDB(): <IDBOpenDBRequest> {
-
-    let db = indexedDB.open('WBBPasswordManager', 2);
-
-    db.onsuccess = (event) => {
+    openDB.onsuccess = (event) => {
       let db = {}
-      db['result'] = event.target['result']
-      console.table(db['result'])
+      db['result'] = openDB.result
       return db;
     }
 
-    db.onerror = (event) => {
+    openDB.onerror = (event) => {
       let db = {}
       db['result'] = event.target['result']
-      console.table(db['result'])
-      return db;
+      return openDB.result;
     }
 
-    db.onblocked = (event) => {
+    openDB.onblocked = (event) => {
       let db = {}
       db['result'] = event.target['result']
-      console.table(db['result'])
-      return db;
+      return openDB.result;
     }
 
-    db.onupgradeneeded = (event) => {
-      console.table(JSON.stringify(event))
+    openDB.onupgradeneeded = (event) => {
       let db = {}
       db['result'] = event.target['result'];
 
@@ -52,47 +41,89 @@ export class LocalDBserviceService {
       db['store'].createIndex('domain', 'domain', { unique: false });
       db['store'].createIndex('password', 'password', { unique: false });
       db['store'].createIndex('updatetime', 'updatetime', { unique: false });
-      return db;
+      return openDB.result;
     }
 
   }
-
-  getStoreIndexedDB(indexName: string, storename: string, mode: string) {
-    let db = {};
-    db['result'] = this.openIndexedDB['result'];
-    db['tx'] = db['result'].transaction(storename, mode);
-    db['store'] = db['tx'].objectStore(storename);
-    db['index'] = db['store'].index(indexName);
-  
-    return db;
-  }
-
-  getStoreInDB (storename: string, mode: string) {
-    let db = {};
-    db['result'] = this.openIndexedDB['result'];
-    db['tx'] = db['result'].transaction(storename, mode);
-    db['store'] = db['tx'].objectStore(storename);
-  
-    return db['store'];
-  }
-  
 
   addPassword(passwordtoadd: PasswordRecord) {
 
-    let openDB = this.openIndexedDB();
+    let openDB = indexedDB.open('WBBPasswordManager', 2)
 
-    openDB.onsuccess = () => {
-  
-      let objectStoreRequest = openDB.store.put({domain:passwordtoadd.domain,password: passwordtoadd.pw,
-        updatetime: passwordtoadd.updatedate})
-  
-      objectStoreRequest.onsuccess = (event) => {
-        console.log(event.target.result)
+    openDB.onsuccess = (event) => {
+      let db = {}
+      db['result'] = openDB.result;
+      db['store'] = db['result'].transaction(['passwordlist'],'readwrite').objectStore('passwordlist');
+      db['store'].put({domain: passwordtoadd.site, password: passwordtoadd.password, updatetime: passwordtoadd.updatedate})
+      
+      return openDB.result;
+    }
+
+    openDB.onerror = (event) => {
+      console.warn(event)
+      return openDB.result;
+    }
+
+    openDB.onupgradeneeded = (event) => {
+      let db = {}
+      db['result'] = event.target['result'];
+
+      db['store'] = db['result'].createObjectStore('passwordlist', { keyPath: 'id', autoIncrement:true });
+      db['store'].createIndex('id', 'id', { unique: true});
+      db['store'].createIndex('domain', 'domain', { unique: false });
+      db['store'].createIndex('password', 'password', { unique: false });
+      db['store'].createIndex('updatetime', 'updatetime', { unique: false });
+      db['store'].put({domain: passwordtoadd.site, password: passwordtoadd.password, updatetime: passwordtoadd.updatedate})
+      return openDB.result;
+    }
+  }
+
+  getAllPasswords(): Array<string> {
+    
+    let searchResults = []
+
+    let openDB = indexedDB.open('WBBPasswordManager', 2)
+
+    openDB.onsuccess = (event) => {
+      let db = {}
+      db['result'] = event.target['result'];
+      db['store'] = db['result'].transaction('passwordlist','readwrite').objectStore('passwordlist');
+      
+      let index = db['store'].index('domain');
+      let getAllRequest = index.getAll();
+      getAllRequest.onsuccess = () => {
+        for (let item in getAllRequest.result) {
+           searchResults.push(getAllRequest.result[item]);
+        }
       }
     }
-  
-    return true;
-    
+    return searchResults
+  }
+
+  checkPassword(search: string): string[] {
+
+    let searchResults = []
+
+    let openDB = indexedDB.open('WBBPasswordManager', 2)
+
+    openDB.onsuccess = (event) => {
+      let db = {}
+      db['result'] = event.target['result'];
+      db['store'] = db['result'].transaction('passwordlist','readwrite').objectStore('passwordlist');
+      
+      let index = db['store'].index('password');
+
+      let request = index.openCursor(IDBKeyRange.only(search));
+      request.onsuccess = () => {
+      var cursor = request.result;
+      if (cursor) {
+          
+        }
+        searchResults.push({id: cursor.value.id, domain: cursor.value.domain, password: cursor.value.password, updatetime: cursor.value.updatetime});
+        cursor.continue();
+      }
+    }
+    return searchResults
   }
 
 }

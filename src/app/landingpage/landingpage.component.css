@@ -41,6 +41,7 @@
     justify-content: flex-end;
     margin:5px;
 }
+
 .landingHeaderTitle {
     display: flex;
     flex-flow: row;
@@ -70,13 +71,6 @@ p {
 
 .mat-tab-labels {
     display: none !important;
-}
-
-.mat-tab-group {
-    width: 100%;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
 }
 
 

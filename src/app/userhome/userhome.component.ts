@@ -13,22 +13,17 @@ export class UserhomeComponent implements OnInit {
 
   loggedIn: boolean;
 
-  searchResults: any;
-
   buttonPassword: any;
 
   visibilityIcon = false;
 
+  searchResults = [];
 
   constructor(private router: Router, private auth: AuthService, private snackBar: MatSnackBar, private dbservice: LocalDBserviceService) {
     this.auth.isAuthenticated().subscribe(val => {
       this.loggedIn = val.valueOf();
     })
-
-    if (this.searchResults === []) {
-      this.searchResults = [dbservice.getStoreIndexedDB('id', 'passwordlist', 'readwrite')]
-    }
-  
+    this.searchResults = dbservice.getAllPasswords()
   }
 
   ngOnInit() { 
@@ -38,7 +33,6 @@ export class UserhomeComponent implements OnInit {
   }
 
   onSuccess(res) {
-    console.log(localStorage.getItem('name') + ' Logged in!');
   }
 
   onErr(err) {

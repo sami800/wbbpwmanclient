@@ -41,8 +41,6 @@ export class GlobalmenuComponent implements OnInit {
 
   logout() {
     this.auth.signOut().subscribe((res)=>{
-      console.log(res);
-      console.log(localStorage.getItem('name') + " Logged Out!");
     });    
   }
 

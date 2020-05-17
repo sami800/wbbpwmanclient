@@ -29,11 +29,9 @@ export class AuthService {
     }
 
     register(user: NewUser): Observable<UserResult> {
-      console.table(user);
       return this.httpClient.post<UserResult>(`${this.APISERVER}auth/signup`, user).pipe(
         tap((res:  UserResult) => {
           if (res) {
-            console.table(res);
             for (let item in res) {
               localStorage.setItem(item, res[item])
             }
@@ -43,11 +41,9 @@ export class AuthService {
     }
 
     signIn(user: User): Observable<UserToken> {
-      console.log(user);
       return this.httpClient.post<UserToken>(`${this.APISERVER}auth/login`, user).pipe(
         tap(async (res: UserToken) => {
           if (res) {
-            console.table(res);
             for (let item in res) {
               localStorage.setItem(item, res[item])
             }
@@ -61,16 +57,27 @@ export class AuthService {
       let username = localStorage.getItem('name');
       this.authSubject.next(false)
       localStorage.clear();
-      this.navigateToLink('/login');
+
+      let openDB = indexedDB.open('WBBPasswordManager', 2)
+      openDB.onsuccess = (event) => {
+        let db = {}
+        db['result'] = event.target['result'];
+        db['store'] = db['result'].transaction('passwordlist','readwrite').objectStore('passwordlist');
+        let cleardb = db['store'].clear()
+        cleardb.onsuccess = (event) => {
+          this.openSnackBar( event +' cleared', 'OK');
+        }
+        cleardb.onerror = (event) => {
+          this.openSnackBar( event +' could not be cleared', 'OK');
+        }
+      }
       this.navigateToLink('/login');
       return this.httpClient.post(`${this.APISERVER}auth/logout`,
       { observe: 'response', headers:{ 'access_token': JSON.stringify(localStorage.getItem
         ('access_token'))}}).pipe(
         tap(async (res: any) => {
           if (res) {
-            console.table(res);
             for (let item in res) {
-              console.log(item);
             }
             this.openSnackBar( username +' signed out', 'OK');
             this.authSubject.next(false)
