@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MediaObserver } from '@angular/flex-layout';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { LocalDBserviceService } from '../dataservices/local-dbservice.service';
   templateUrl: './newpassword.component.html',
   styleUrls: ['./newpassword.component.css']
 })
-export class NewpasswordComponent implements OnInit, AfterViewChecked {
+export class NewpasswordComponent implements OnInit {
 
   currentTab = new FormControl(0);
   tabPosition = 'above';
@@ -34,12 +34,11 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
     const month = new Date().getMonth();
     const day = new Date().getDate();
     this.todaysDate = year+'-'+month+'-'+day;
-  }
-  ngAfterViewChecked(): void {
+
     if (this.media.isActive('xs') || this.media.isActive('sm') || this.media.isActive('md') )
-      this.tabPosition = 'below';
+    this.tabPosition = 'below';
     else
-      this.tabPosition = 'above';
+    this.tabPosition = 'above';
   }
 
   ngOnInit(): void {
@@ -70,7 +69,7 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
   submitGeneratedPW(generatePWForm){
     if (generatePWForm.controls.domain !== '' && generatePWForm.controls.password !== '')
       this.localdb.addPassword(generatePWForm.value)
-      this.db.syncData(generatePWForm.value).subscribe(
+      this.db.addPassword(generatePWForm.value).subscribe(
         (res) => this.onSuccess(res),
         (error) => this.onErr(error)
     );
@@ -79,7 +78,7 @@ export class NewpasswordComponent implements OnInit, AfterViewChecked {
   submitNewPW(savePWForm){
     if (savePWForm.controls.domain !== '' && savePWForm.controls.password !== '')
       this.localdb.addPassword(savePWForm.value)
-      this.db.syncData(savePWForm.value).subscribe(
+      this.db.addPassword(savePWForm.value).subscribe(
         (res) => this.onSuccess(res),
         (error) => this.onErr(error)
     );

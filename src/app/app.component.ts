@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LocalDBserviceService } from './dataservices/local-dbservice.service'
+import { LocalDBserviceService } from './dataservices/local-dbservice.service';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +8,7 @@ import { LocalDBserviceService } from './dataservices/local-dbservice.service'
 })
 export class AppComponent {
   title = 'wbbpwmanclient';
-  constructor() {}
+  constructor(private dbservice: LocalDBserviceService) {
+    dbservice = new LocalDBserviceService
+  }
 }

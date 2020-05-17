@@ -1,26 +1,38 @@
+
 <div class="pageContainer">
-<mat-card>
+
+
+<mat-card *ngIf="searchResults === []">
     <mat-card-content>
-    <table>
-        <thead>
-            <tr>
-              <th>ID</th>
-              <th>Domain</th>
-              <th> </th>
-            </tr>
+    <!-- desktop  -->
+        <table fxShow fxHide.xs fxHide.sm fxHide.md>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Domain</th>
+                    <th>Password</th>
+                </tr>
             </thead>
-           
             <tbody>
-            <tr class="row" *ngFor="let item of searchResults[0]">
-                <td>{{item.id}}</td>
-                <td>{{item.domain}}</td>
-                <td>
-                    <p type="password">{{item.password}}
-                    </p>
-                </td>
-            </tr>
+                <tr class="row" *ngFor="let item of searchResults[0]">
+                    <td>{{item.id}}</td>
+                    <td>{{item.domain}}</td>
+                    <td>
+                        <p type="password">{{item.password}}</p>
+                    </td>
+                </tr>
             </tbody>
         </table>
-    </mat-card-content>
-</mat-card>
+    <!-- mobile  -->
+        <table fxHide fxShow.xs fxShow.sm fxShow.md>
+            <tr class="row" *ngFor="let item of searchResults[0]">
+                <p>ID: {{item.id}}</p>
+                <p>Domain: {{item.domain}}</p>
+                <div>
+                    <p type="password">Password: {{item.password}}</p>
+                </div>
+            </tr>
+        </table>
+        </mat-card-content>
+    </mat-card>
 </div>

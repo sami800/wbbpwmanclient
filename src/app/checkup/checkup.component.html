@@ -21,7 +21,7 @@
             </tr>
             </thead>
            
-            <tbody>
+            <tbody *ngIf="anyResults">
             <tr class="row" *ngFor="let item of searchResults[0]">
                 <td>{{item.id}}</td>
                 <td>{{item.domain}}</td>

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { LocalDBserviceService } from '../dataservices/local-dbservice.service';
@@ -20,22 +20,21 @@ export class UserhomeComponent implements OnInit {
   visibilityIcon = false;
 
 
-  constructor(private router: Router, private auth: AuthService, private snackBar: MatSnackBar, private localdb: LocalDBserviceService) {
+  constructor(private router: Router, private auth: AuthService, private snackBar: MatSnackBar, private dbservice: LocalDBserviceService) {
     this.auth.isAuthenticated().subscribe(val => {
       this.loggedIn = val.valueOf();
     })
+
+    if (this.searchResults === []) {
+      this.searchResults = [dbservice.getStoreIndexedDB('id', 'passwordlist', 'readwrite')]
+    }
+  
   }
 
   ngOnInit() { 
     if (!this.loggedIn) {
       this.router.navigate(['/login'])
     }
-    this.loadAllToGrid()
-    this.buttonPassword = 'View Password'
-  }
-
-  loadAllToGrid() {
-    this.searchResults = [this.localdb.getAllPasswords()]
   }
 
   onSuccess(res) {

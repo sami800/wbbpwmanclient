@@ -40,7 +40,7 @@ export class CheckupComponent implements OnInit {
 
   checkup(checkupForm){
     this.anyResults = true
-    this.searchResults = [this.dbservice.checkPassword(checkupForm.get('password').value)]
+    this.searchResults = [checkupForm.get('password').value]
     console.table(this.searchResults)
   }
 

@@ -13,129 +13,86 @@ export class LocalDBserviceService {
 
   objectStore: any;
 
-  DBOpenRequest: IDBOpenDBRequest;
-
   constructor() {
-
-    const DBOpenRequest = indexedDB.open('WBBPasswordManager', 1);
-
-    DBOpenRequest.onerror = (event) => {
-      console.warn(event);
-    };
-
-    DBOpenRequest.onsuccess = (event) => {
-      this.db = DBOpenRequest.result;
-      console.log(event)
-    };
-
-    DBOpenRequest.onupgradeneeded = (event) => {
-      this.db = DBOpenRequest.result;
-      console.log(event)
-      this.objectStore = this.db.createObjectStore('passwordlist', { keyPath: 'id', autoIncrement:true });
-
-      this.objectStore.createIndex('id', 'id', { unique: true});
-      this.objectStore.createIndex('domain', 'domain', { unique: false });
-      this.objectStore.createIndex('password', 'password', { unique: false });
-      this.objectStore.createIndex('updatetime', 'updatetime', { unique: false });
-    };
+    console.table(this.openIndexedDB())
   };
 
+  openIndexedDB(): <IDBOpenDBRequest> {
 
-  getObjectStore(storename: string, mode: string) {
-    const tx = this.db.transaction(storename, mode)
-    return tx.objectStore(storename);
+    let db = indexedDB.open('WBBPasswordManager', 2);
+
+    db.onsuccess = (event) => {
+      let db = {}
+      db['result'] = event.target['result']
+      console.table(db['result'])
+      return db;
+    }
+
+    db.onerror = (event) => {
+      let db = {}
+      db['result'] = event.target['result']
+      console.table(db['result'])
+      return db;
+    }
+
+    db.onblocked = (event) => {
+      let db = {}
+      db['result'] = event.target['result']
+      console.table(db['result'])
+      return db;
+    }
+
+    db.onupgradeneeded = (event) => {
+      console.table(JSON.stringify(event))
+      let db = {}
+      db['result'] = event.target['result'];
+
+      db['store'] = db['result'].createObjectStore('passwordlist', { keyPath: 'id', autoIncrement:true });
+      db['store'].createIndex('id', 'id', { unique: true});
+      db['store'].createIndex('domain', 'domain', { unique: false });
+      db['store'].createIndex('password', 'password', { unique: false });
+      db['store'].createIndex('updatetime', 'updatetime', { unique: false });
+      return db;
+    }
+
   }
 
-  getFromIndex(indexName: string, storename: string, mode: string) {
-    const tx = this.db.transaction(storename, mode)
-    const store = tx.objectStore(storename)
-    const index = store.index(indexName)
-    return index;
+  getStoreIndexedDB(indexName: string, storename: string, mode: string) {
+    let db = {};
+    db['result'] = this.openIndexedDB['result'];
+    db['tx'] = db['result'].transaction(storename, mode);
+    db['store'] = db['tx'].objectStore(storename);
+    db['index'] = db['store'].index(indexName);
+  
+    return db;
   }
+
+  getStoreInDB (storename: string, mode: string) {
+    let db = {};
+    db['result'] = this.openIndexedDB['result'];
+    db['tx'] = db['result'].transaction(storename, mode);
+    db['store'] = db['tx'].objectStore(storename);
+  
+    return db['store'];
+  }
+  
 
   addPassword(passwordtoadd: PasswordRecord) {
 
-    const objectStoreRequest = this.getObjectStore('passwordlist', 'readwrite')
+    let openDB = this.openIndexedDB();
 
-    objectStoreRequest.put({domain:passwordtoadd.domain,password: passwordtoadd.pw,
-      updatetime: passwordtoadd.updatedate})
-
-    objectStoreRequest.onsuccess = (event) => {
-      console.log(event)
-    }
-
-  }
-
-  getFromDomain(search: string) {
-    this.objectStore.where({domain: search}).first(result => {
-      console.log(JSON.stringify(result));
-    }).catch((error) => {
-        console.log(error);
-    });
-  }
-
-  getFromHash(search: string) {
-    this.objectStore.where({password: search}).first(result => {
-      console.log(JSON.stringify(result));
-    }).catch((error) => {
-        console.log(error);
-    });
-  }
-
-  checkRecordExpiry(search: string) {
-    this.objectStore.where('updatedate').between( Date.parse(search) - 30, Date.parse(search) - 60, true, true).each(result => {
-      console.log(JSON.stringify(result));
-    }).catch((error) => {
-        console.log(error);
-    });
-  }
-
-  getPasswordByID(search: string): string {
-    
-    let passwordfromid = ''
-
-    let index = this.getFromIndex('id', 'passwordlist', 'readwrite');
-    
-    let request = index.get(IDBKeyRange.only(search));
-    request.onsuccess = () => {
-      console.log(request.result.password)
-      passwordfromid = request.result.password
-    }
-    return passwordfromid
-  }
-
-
-  getAllPasswords(): string[] {
-    
-    let passwordlist = []
-
-    let index = this.getFromIndex('password', 'passwordlist', 'readwrite');
-    
-    let request = index.openCursor();
-    request.onsuccess = () => {
-      var cursor = request.result;
-      if (cursor) {
-        passwordlist.push({id: cursor.value.id, domain: cursor.value.domain, password: cursor.value.password, updatetime: cursor.value.updatetime});
-        cursor.continue();
+    openDB.onsuccess = () => {
+  
+      let objectStoreRequest = openDB.store.put({domain:passwordtoadd.domain,password: passwordtoadd.pw,
+        updatetime: passwordtoadd.updatedate})
+  
+      objectStoreRequest.onsuccess = (event) => {
+        console.log(event.target.result)
       }
     }
-    return passwordlist
-  }
-
-  checkPassword(search: string): string[] {
-
-    let passwordlist = []
-
-    let index = this.getFromIndex('password', 'passwordlist', 'readwrite');
+  
+    return true;
     
-    let request = index.openCursor(IDBKeyRange.only(search));
-    request.onsuccess = () => {
-      var cursor = request.result;
-      if (cursor) {
-        passwordlist.push({id: cursor.value.id, domain: cursor.value.domain, password: cursor.value.password, updatetime: cursor.value.updatetime});
-        cursor.continue();
-      }
-    }
-    return passwordlist
   }
+
 }

@@ -21,20 +21,42 @@
 
 <mat-tab-group [selectedIndex]="currentTab.value" (selectedIndexChange)="currentTab.setValue($event)">
     <mat-tab id="prodtitle" label="WBB Password Manager">
-        <mat-card class="example-card">
-            <mat-card-content class="cardContainer">
+        <mat-card class="cardContainer">
+            <mat-card-content>
                 <div class="landingLogo" >
                     <img src="assets/icons/icon-128x128.png"> 
                 </div>
                     <mat-label>
-                        <h1>Thank you for choosing WBB Password manager</h1>
-                        <h2>The easiest way to keep all your pasSwords safe and secure where no bug shall pass!</h2>
-                        <h3>"We will chase all your bugs away" - The WBB team ;)</h3>
+                        <h1>Welcome to WBB Password manager</h1>
+                        <h2>Helping you to protect yourself.</h2>
+                        <p>
+                            Never worry about remembering multiple login credentials again. <br>
+                            WBB Password manager will generate, store and autofill login credentials for you <br>
+                            leave it to us to ensure that your passwords are kept safe and secure <br>
+                        </p>
+
+                        <h3>Features</h3>
+                        <ul> 
+                            <li>Password Generator </li> 
+                            <li>Autofill online forms</li>  
+                            <li>2 Factor authentication </li> 
+                            <li>Password safety check</li>  
+                            <li>Available across multiple devices</li> 
+                            <li>Regular security reminders</li>
+                        </ul>
+
+                        <p>
+                            If you have any questions contact us on: <br>
+                            <a href="mailto:help@wbbpassword.co.uk">help@wbbpassword.co.uk></a>
+                        </p>
+
                     </mat-label>
             </mat-card-content>
           </mat-card>
+        
 
     </mat-tab>
     <mat-tab class="loginTab" label="Login"><app-logindialog></app-logindialog></mat-tab>
     <mat-tab class="registerTab" label="Register"><app-registrationdialog></app-registrationdialog></mat-tab>
 </mat-tab-group>
+
