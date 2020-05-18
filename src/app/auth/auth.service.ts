@@ -11,6 +11,7 @@ import { UserResult } from '../models/newuserresult';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -46,12 +47,13 @@ export class AuthService {
           if (res) {
             for (let item in res) {
               localStorage.setItem(item, res[item])
-            }
+            }     
             this.authSubject.next(true);
           } 
         })
       );
     }
+  
 
     signOut(): Observable<any> {
       let username = localStorage.getItem('name');
@@ -65,10 +67,10 @@ export class AuthService {
         db['store'] = db['result'].transaction('passwordlist','readwrite').objectStore('passwordlist');
         let cleardb = db['store'].clear()
         cleardb.onsuccess = (event) => {
-          this.openSnackBar( event +' cleared', 'OK');
+          this.openSnackBar('Local DB cleared', 'OK');
         }
         cleardb.onerror = (event) => {
-          this.openSnackBar( event +' could not be cleared', 'OK');
+          this.openSnackBar('Local DB couldn\'t be cleared', 'OK');
         }
       }
       this.navigateToLink('/login');

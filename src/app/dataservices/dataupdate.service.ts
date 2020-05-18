@@ -4,7 +4,6 @@ import { tap } from 'rxjs/operators';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 import { AddPasswordModel } from '../models/addpasswordmodel';
 import { AddPasswordReturn } from '../models/addpasswordreturn';
 import { UpdatePasswordModel } from '../models/updatepasswordmodel';
@@ -17,7 +16,7 @@ export class DataupdateService {
 
   APISERVER = 'https://wbbpasswordmanager.appspot.com/';
 
-  constructor(private httpClient: HttpClient, private router: Router, private snackBar: MatSnackBar) {}
+  constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) {}
 
   addPassword(password: AddPasswordModel): Observable<AddPasswordReturn> {
     return this.httpClient.post<AddPasswordReturn>(`${this.APISERVER}user/addpassword`, password).pipe(
@@ -28,12 +27,12 @@ export class DataupdateService {
     );
   }
 
-  getPasswords(password: string): Observable<any> {
-    return this.httpClient.post<any>(`${this.APISERVER}user/getpasswords`, password).pipe(
+  getPasswords(uid: string): Observable<any> {
+    console.log(JSON.stringify(uid))
+    return this.httpClient.post<any>(`${this.APISERVER}user/getpasswords`, {uid: uid}).pipe(
       tap((res:  any) => {
         if (res) {
-          for (let item in res) {
-          }
+          this.openSnackBar('Downloaded ' + res.length +' passwords', 'ok')
         }
       })
     );

@@ -27,12 +27,6 @@ export class NewpasswordComponent implements OnInit {
     private snackBar: MatSnackBar, private db: DataupdateService,
     public media: MediaObserver, private localdb: LocalDBserviceService) {
     
-    if (this.media.isActive('xs') || this.media.isActive('sm') || this.media.isActive('md') ){
-    this.tabPosition = 'below';
-    } else {
-    this.tabPosition = 'above';
-    }
-
     this.auth.isAuthenticated().subscribe(val => {
       this.loggedIn = val.valueOf();
     })
@@ -50,7 +44,7 @@ export class NewpasswordComponent implements OnInit {
       uid: new FormControl(localStorage.getItem('id')),
       site: new FormControl(''),
       password: new FormControl(''),
-      newid: new FormControl(''),
+      id: new FormControl('0'),
       updatedate: new FormControl(this.todaysDate)
     });
 
@@ -58,7 +52,7 @@ export class NewpasswordComponent implements OnInit {
       uid: new FormControl(localStorage.getItem('id')),
       site: new FormControl(''),
       password: new FormControl(''),
-      id: new FormControl(''),
+      id: new FormControl('0'),
       updatedate: new FormControl(this.todaysDate)
     });
 

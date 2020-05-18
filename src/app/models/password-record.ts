@@ -1,5 +1,5 @@
 export interface PasswordRecord {
-    id?: number;
+    id?: string;
     site: string;
     password: string;
     updatedate: string;

@@ -54,8 +54,12 @@ export class LocalDBserviceService {
       let db = {}
       db['result'] = openDB.result;
       db['store'] = db['result'].transaction(['passwordlist'],'readwrite').objectStore('passwordlist');
+      if (passwordtoadd.id === '0') {
       db['store'].put({domain: passwordtoadd.site, password: passwordtoadd.password, updatetime: passwordtoadd.updatedate})
-      
+      }
+      if (passwordtoadd.id !== '0') {
+        db['store'].put({id: passwordtoadd.id, domain: passwordtoadd.site, password: passwordtoadd.password, updatetime: passwordtoadd.updatedate})  
+      }
       return openDB.result;
     }
 
@@ -67,13 +71,17 @@ export class LocalDBserviceService {
     openDB.onupgradeneeded = (event) => {
       let db = {}
       db['result'] = event.target['result'];
-
       db['store'] = db['result'].createObjectStore('passwordlist', { keyPath: 'id', autoIncrement:true });
       db['store'].createIndex('id', 'id', { unique: true});
       db['store'].createIndex('domain', 'domain', { unique: false });
       db['store'].createIndex('password', 'password', { unique: false });
       db['store'].createIndex('updatetime', 'updatetime', { unique: false });
+      if (passwordtoadd.id === '0') {
       db['store'].put({domain: passwordtoadd.site, password: passwordtoadd.password, updatetime: passwordtoadd.updatedate})
+      }
+      if (passwordtoadd.id !== '0') {
+        db['store'].put({id: passwordtoadd.id, domain: passwordtoadd.site, password: passwordtoadd.password, updatetime: passwordtoadd.updatedate})  
+      }
       return openDB.result;
     }
   }
